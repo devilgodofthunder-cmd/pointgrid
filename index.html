@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Point Grid Media Agency</title>
+    <style>
+        /* Estilos Globales */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-weight: 700;
+        }
+
+        /* --- SECCIÓN: INICIO --- */
+        #inicio {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            padding: 20px;
+        }
+
+        #inicio h1 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        #inicio p {
+            font-size: 1.5rem;
+            max-width: 800px;
+            color: #b0b0b0;
+        }
+
+        /* --- SECCIÓN: SERVICIOS --- */
+        #servicios {
+            padding: 100px 20px;
+            background-color: #111;
+            text-align: center;
+        }
+
+        #servicios h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+        }
+
+        .grid-servicios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .servicio-card {
+            background-color: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #333;
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+        }
+
+        .servicio-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .servicio-card p {
+            color: #aaa;
+            line-height: 1.6;
+        }
+
+        /* --- SECCIÓN: CLIENTES (Estilo Reels 3D) --- */
+        #clientes-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* Hace el efecto snap como TikTok/Reels */
+            background-color: #000;
+        }
+
+        /* Ocultar barra de scroll para un look más limpio */
+        #clientes-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .cliente-reel {
+            height: 100vh;
+            width: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+            padding: 20px;
+        }
+
+        .tarjeta-3d {
+            width: 100%;
+            max-width: 400px;
+            height: 70vh;
+            max-height: 700px;
+            position: relative;
+            border-radius: 20px;
+            transform-style: preserve-3d;
+            transition: transform 0.1s;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            background-color: #222;
+        }
+
+        .img-cliente {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+            opacity: 0.6;
+        }
+
+        .info-cliente {
+            position: absolute;
+            bottom: 30px;
+            left: 20px;
+            right: 80px; /* Deja espacio para el botón de like */
+            transform: translateZ(50px); /* Efecto pop-out 3D */
+            pointer-events: none;
+        }
+
+        .info-cliente h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .info-cliente p {
+            font-size: 1.1rem;
+            color: #ddd;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .btn-like {
+            position: absolute;
+            right: 20px;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border: none;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateZ(60px); /* Efecto pop-out 3D */
+            backdrop-filter: blur(5px);
+            outline: none;
+        }
+
+        .corazon {
+            width: 30px;
+            height: 30px;
+            fill: transparent;
+            stroke: white;
+            stroke-width: 2px;
+            transition: transform 0.2s, fill 0.3s, stroke 0.3s;
+        }
+
+        .corazon.activo {
+            fill: #ff2a5f;
+            stroke: #ff2a5f;
+            transform: scale(1.3);
+        }
+
+        /* --- SECCIÓN: CONTACTO --- */
+        #contacto {
+            padding: 100px 20px;
+            background-color: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #contacto h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+        }
+
+        .form-contacto {
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-contacto input, 
+        .form-contacto select, 
+        .form-contacto textarea {
+            width: 100%;
+            padding: 15px;
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        .form-contacto input:focus, 
+        .form-contacto select:focus, 
+        .form-contacto textarea:focus {
+            outline: none;
+            border-color: #555;
+        }
+
+        .form-contacto textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .btn-enviar {
+            padding: 15px;
+            background-color: #ffffff;
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn-enviar:hover {
+            background-color: #cccccc;
+        }
+
+        /* --- BOTÓN FLOTANTE WHATSAPP --- */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25d366;
+            color: #FFF;
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+        }
+
+        .whatsapp-float svg {
+            width: 35px;
+            height: 35px;
+            fill: white;
+        }
+        
+        /* Instrucción sutil para hacer scroll en los clientes */
+        .scroll-indicator {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            pointer-events: none;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SECCIÓN INICIO -->
+    <section id="inicio">
+        <h1>Point Grid Media Agency</h1>
+        <p>Visibilidad explosiva y prospectos reales para tu negocio o proyecto artístico.</p>
+    </section>
+
+    <!-- SECCIÓN SERVICIOS -->
+    <section id="servicios">
+        <h2>Nuestros Servicios</h2>
+        <div class="grid-servicios">
+            <div class="servicio-card">
+                <h3>Gestión de Redes y Ads</h3>
+                <p>Dominamos Meta Ads, TikTok y Google Ads. Construimos embudos robustos que convierten clics en prospectos perfilados y clientes reales.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>Crecimiento para Artistas</h3>
+                <p>Estrategias digitales diseñadas para músicos y creativos. Incrementamos tu audiencia, seguidores y alcance para que tu proyecto destaque.</p>
+            </div>
+            <div class="servicio-card">
+                <h3>Activaciones BTL</h3>
+                <p>Llevamos tu marca al mundo físico. Logística de primer nivel y experiencias en terreno con talento promocional que el público no olvida.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CLIENTES (Estilo Reels) -->
+    <section id="clientes-container">
+        
+        <!-- Cliente 1 -->
+        <div class="cliente-reel">
+            <div class="tarjeta-3d" onmousemove="moverTarjeta(event, this)" onmouseleave="resetTarjeta(this)">
+                <div class="scroll-indicator">Desliza hacia abajo ↓</div>
+                <!-- Reemplaza el src con la ruta real de tu imagen (ej. 3m.jpeg) -->
+                <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&q=80" alt="Michelle Calderón" class="img-cliente">
+                
+                <div class="info-cliente">
+                    <h3>Michelle Calderón</h3>
+                    <p>Modelo, músico y host de eventos.</p>
+                </div>
+                
+                <button class="btn-like" onclick="darLike(this)">
+                    <svg viewBox="0 0 24 24" class="corazon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Cliente 2 -->
+        <div class="cliente-reel">
+            <div class="tarjeta-3d" onmousemove="moverTarjeta(event, this)" onmouseleave="resetTarjeta(this)">
+                <!-- Reemplaza el src con la ruta real de tu imagen -->
+                <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80" alt="Slaughter Noise" class="img-cliente">
+                
+                <div class="info-cliente">
+                    <h3>Slaughter Noise</h3>
+                    <p>Coordinación y difusión de eventos musicales.</p>
+                </div>
+                
+                <button class="btn-like" onclick="darLike(this)">
+                    <svg viewBox="0 0 24 24" class="corazon"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- SECCIÓN CONTACTO -->
+    <section id="contacto">
+        <h2>Impulsa tu proyecto</h2>
+        
+        <!-- Formulario configurado para enviar datos usando el cliente de correo por defecto -->
+        <form class="form-contacto" action="mailto:contacto@pointgridmx.com" method="POST" enctype="text/plain">
+            <input type="text" name="Nombre" placeholder="Tu Nombre o Marca" required>
+            <input type="tel" name="Telefono" placeholder="Número Telefónico" required>
+            
+            <select name="Tipo" required>
+                <option value="" disabled selected>¿Qué tipo de proyecto es?</option>
+                <option value="Empresa">Empresa / Negocio Local</option>
+                <option value="Emprendimiento">Emprendimiento</option>
+                <option value="Artista">Artista / Músico</option>
+                <option value="Otro">Otro</option>
+            </select>
+            
+            <textarea name="Mensaje" placeholder="Cuéntanos brevemente sobre tu proyecto y lo que buscas lograr..." required></textarea>
+            
+            <button type="submit" class="btn-enviar">Enviar Mensaje</button>
+        </form>
+    </section>
+
+    <!-- BOTÓN WHATSAPP -->
+    <a href="https://wa.me/525667462837?text=Hola%20Point%20Grid,%20vengo%20de%20su%20sitio%20web%20y%20me%20interesa%20potenciar%20mi%20proyecto." class="whatsapp-float" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.423-14.416c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm.029 18.88c-1.161 0-2.305-.292-3.318-.844l-3.677.964.984-3.595c-.607-1.052-.927-2.246-.926-3.468.001-5.824 4.74-10.563 10.564-10.563 5.826 0 10.564 4.738 10.564 10.562s-4.738 10.564-10.563 10.564z"/></svg>
+    </a>
+
+    <!-- SCRIPTS PARA INTERACTIVIDAD -->
+    <script>
+        // Animación de Latido para el Botón de "Me gusta"
+        function darLike(boton) {
+            const corazon = boton.querySelector('.corazon');
+            corazon.classList.toggle('activo');
+            
+            setTimeout(() => {
+                if(corazon.classList.contains('activo')) {
+                    corazon.style.transform = 'scale(1)';
+                }
+            }, 200);
+        }
+
+        // Efecto 3D al mover el ratón sobre las tarjetas
+        function moverTarjeta(e, tarjeta) {
+            // Obtener dimensiones y posición de la tarjeta
+            const rect = tarjeta.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Calcular el centro
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Calcular la rotación (ajustar divisores para más o menos sensibilidad)
+            const rotateX = ((y - centerY) / 15) * -1;
+            const rotateY = (x - centerX) / 15;
+            
+            tarjeta.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        }
+
+        // Restaurar la tarjeta a su posición original al salir el cursor
+        function resetTarjeta(tarjeta) {
+            tarjeta.style.transform = 'rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            tarjeta.style.transition = 'transform 0.5s ease';
+            
+            // Remover la transición suave después de volver para no afectar el movimiento del mouse
+            setTimeout(() => {
+                tarjeta.style.transition = 'transform 0.1s';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
