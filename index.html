@@ -72,15 +72,13 @@
         }
         .social-btn svg { width: 24px; height: 24px; fill: transparent; stroke: currentColor; stroke-width: 2px; transition: all 0.3s ease;}
         
-        /* Estados Activos (Likes, Comentarios, Compartidos) */
         .social-btn.activo-like svg { fill: var(--cyan-neon); stroke: var(--cyan-neon); transform: scale(1.2); }
         .social-btn.activo-comment svg { fill: var(--text-main); transform: scale(1.1); }
         .social-btn.activo-share svg { stroke: var(--cyan-neon); transform: scale(1.1); }
 
-        /* --- INICIO Y ANIMACIONES --- */
+        /* --- INICIO Y LETRERO NEÓN WHATSAPP --- */
         #inicio { text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 100%); }
         
-        /* Animación del Título Principal */
         @keyframes levitar-neon {
             0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(0,255,204,0.2); }
             50% { transform: translateY(-8px); text-shadow: 0 0 20px rgba(0,255,204,0.6), 0 0 30px rgba(0,255,204,0.4); }
@@ -88,11 +86,10 @@
 
         #inicio h1 { 
             font-size: 3.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; 
-            animation: levitar-neon 4s ease-in-out infinite; /* Movimiento aplicado aquí */
+            animation: levitar-neon 4s ease-in-out infinite; 
         }
         #inicio h1 span { color: var(--cyan-neon); }
         
-        /* Efecto Máquina de Escribir */
         .texto-dinamico-container {
             height: 40px; margin-bottom: 10px;
         }
@@ -107,7 +104,46 @@
         }
         @keyframes parpadeo { 50% { border-color: transparent; } }
 
-        /* --- SERVICIOS (CUADRÍCULA 2x2) --- */
+        /* Letrero Neón Contáctanos WhatsApp */
+        .neon-whatsapp-box {
+            margin-top: 15px;
+            display: inline-block;
+        }
+        .neon-whatsapp-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 25px;
+            background: rgba(0, 255, 204, 0.05);
+            border: 2px solid var(--cyan-neon);
+            border-radius: 50px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(0,255,204,0.4), inset 0 0 10px rgba(0,255,204,0.2);
+            animation: parpadeo-neon 2s infinite alternate;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .neon-whatsapp-link:hover {
+            transform: scale(1.05);
+            background: rgba(0, 255, 204, 0.15);
+            box-shadow: 0 0 25px rgba(0,255,204,0.8), inset 0 0 15px rgba(0,255,204,0.4);
+        }
+        .neon-whatsapp-link svg {
+            width: 26px;
+            height: 26px;
+            fill: #25d366;
+            filter: drop-shadow(0 0 5px #25d366);
+        }
+        @keyframes parpadeo-neon {
+            0% { border-color: rgba(0,255,204,0.4); box-shadow: 0 0 10px rgba(0,255,204,0.3); }
+            100% { border-color: rgba(0,255,204,1); box-shadow: 0 0 25px rgba(0,255,204,0.8); }
+        }
+
+        /* --- SERVICIOS (EFECTO DESPLEGABLE) --- */
         .grid-servicios {
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
@@ -117,15 +153,25 @@
             .grid-servicios { grid-template-columns: 1fr; } 
         }
         .servicio-card {
-            background-color: var(--dark-card); padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: center; transition: 0.3s;
+            background-color: var(--dark-card); padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: center; transition: all 0.4s ease; cursor: pointer;
+            overflow: hidden; max-height: 110px; /* Tamaño colapsado */
         }
-        .servicio-card:hover { border-color: var(--cyan-neon); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,255,204,0.1); }
+        .servicio-card:hover, .servicio-card:active {
+            max-height: 250px; /* Altura desplegada */
+            border-color: var(--cyan-neon);
+            box-shadow: 0 10px 25px rgba(0,255,204,0.15);
+            transform: translateY(-3px);
+        }
         .servicio-card h3 { color: var(--cyan-neon); margin-bottom: 10px; font-size: 1.2rem;}
-        .servicio-card p { color: var(--text-muted); font-size: 0.9rem; }
+        .servicio-card p.descripcion-corta { color: var(--text-muted); font-size: 0.9rem; }
+        .servicio-card p.descripcion-larga {
+            color: #ffffff; font-size: 0.85rem; margin-top: 12px; line-height: 1.5; opacity: 0; transition: opacity 0.3s ease;
+        }
+        .servicio-card:hover p.descripcion-larga { opacity: 1; }
 
         /* --- CLIENTES (CARRUSEL CENTRADO CON FLECHAS) --- */
         .carrusel-wrapper {
-            position: relative; width: 100%; max-width: 350px; height: 65vh; margin: 0 auto;
+            position: relative; width: 100%; max-width: 350px; height: 62vh; margin: 0 auto;
         }
         .carrusel-container {
             width: 100%; height: 100%; overflow: hidden; position: relative; border-radius: 20px;
@@ -161,14 +207,14 @@
 
         /* --- POINT SHOCK --- */
         #point-shock { text-align: center; padding: 20px; }
-        .etiqueta-descubre { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: -10px; }
-        #point-shock h2 { font-size: 4rem; color: var(--cyan-neon); text-transform: uppercase; margin-bottom: 20px; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        .etiqueta-descubre { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: -5px; }
+        #point-shock h2 { font-size: 3.5rem; color: var(--cyan-neon); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
         .cartel-pronto { 
-            background: #ff0055; color: white; padding: 10px 30px; font-size: 2rem; font-weight: bold; 
-            border-radius: 10px; display: inline-block; transform: rotate(-5deg); margin-bottom: 30px; 
+            background: #ff0055; color: white; padding: 8px 25px; font-size: 1.8rem; font-weight: bold; 
+            border-radius: 10px; display: inline-block; transform: rotate(-3deg); margin-bottom: 20px; 
             box-shadow: 0 10px 20px rgba(255,0,85,0.4);
         }
-        #point-shock p { font-size: 1.1rem; color: var(--text-main); max-width: 700px; margin: 0 auto 15px auto; line-height: 1.6; }
+        #point-shock p { font-size: 1.1rem; color: var(--text-main); max-width: 700px; margin: 0 auto 10px auto; line-height: 1.5; }
         
         /* --- CONTACTO --- */
         .form-contacto { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; }
@@ -202,6 +248,14 @@
                 <div class="texto-dinamico-container">
                     <span class="texto-dinamico" id="texto-escribiendo"></span>
                 </div>
+                
+                <!-- Letrero Neón WhatsApp con Número -->
+                <div class="neon-whatsapp-box">
+                    <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-whatsapp-link" target="_blank">
+                        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+                        <span>Contáctanos: 56 6746 2837</span>
+                    </a>
+                </div>
             </div>
             
             <div class="social-bar">
@@ -211,26 +265,35 @@
             </div>
         </section>
 
-        <!-- PÁGINA 2: SERVICIOS -->
+        <!-- PÁGINA 2: SERVICIOS (DESPLETABLES) -->
         <section id="servicios" class="pagina">
             <h2>Servicios</h2>
             <div class="grid-servicios">
+                
                 <div class="servicio-card">
                     <h3>Redes & Ads</h3>
-                    <p>Meta, TikTok y Google Ads. Embudos robustos para prospectos perfilados.</p>
+                    <p class="descripcion-corta">Meta, TikTok y Google Ads. Embudos robustos.</p>
+                    <p class="descripcion-larga">¿Necesitas campañas para tu página de Facebook, TikTok y redes? Ya sea para tu marca de ropa, bebida artesanal o proyecto musical, nosotros te ayudamos a captar clientes calificados.</p>
                 </div>
+
                 <div class="servicio-card">
                     <h3>Crecimiento Artístico</h3>
-                    <p>Estrategias para músicos. Incrementamos tu audiencia y alcance.</p>
+                    <p class="descripcion-corta">Estrategias especializadas para músicos y creativos.</p>
+                    <p class="descripcion-larga">Incrementa tu audiencia real, reproduce más tus temas y llena tus próximos shows con estrategias digitales diseñadas exclusivamente para la escena musical.</p>
                 </div>
+
                 <div class="servicio-card">
                     <h3>Activaciones BTL</h3>
-                    <p>Marca en el mundo físico. Talento promocional en terreno.</p>
+                    <p class="descripcion-corta">Lleva tu marca al mundo físico con impacto.</p>
+                    <p class="descripcion-larga">Coordinamos stands, merchandise y talento promocional en terreno para que tu marca interactúe directamente con tu consumidor y genere conversiones físicas.</p>
                 </div>
+
                 <div class="servicio-card">
                     <h3>Eventos & Experiencias</h3>
-                    <p>Planeación de dinámicas, DJs y booking de artistas para tu evento ideal.</p>
+                    <p class="descripcion-corta">Planeación de dinámicas, DJs y booking.</p>
+                    <p class="descripcion-larga">Nos encargamos de estructurar tu evento especial de principio a fin, integrando ambientación, DJs y artistas para garantizar una experiencia inolvidable.</p>
                 </div>
+
             </div>
 
             <div class="social-bar">
@@ -297,7 +360,7 @@
             </div>
         </section>
 
-        <!-- PÁGINA 4: POINT SHOCK -->
+        <!-- PÁGINA 4: POINT SHOCK (ACTUALIZADA) -->
         <section id="point-shock" class="pagina">
             <div>
                 <p class="etiqueta-descubre">Descubre</p>
@@ -305,8 +368,7 @@
                 
                 <div class="cartel-pronto">¡MUY PRONTO!</div>
                 
-                <p style="color: var(--cyan-neon); font-weight: bold; font-size: 1.3rem;">Visibilidad de alto impacto para tu proyecto.</p>
-                <p>Es el proyecto de entrevistas en bares o restaurantes muy casuales con quien guste darle visibilidad a su marca.</p>
+                <p style="color: var(--cyan-neon); font-weight: bold; font-size: 1.2rem;">Visibilidad de alto impacto para tu proyecto.</p>
                 <p><strong>Exclusivo de YouTube.</strong></p>
             </div>
 
@@ -317,9 +379,9 @@
             </div>
         </section>
 
-        <!-- PÁGINA 5: CONTACTO -->
+        <!-- PÁGINA 5: CONTACTO (ENLAZADO A CORREO) -->
         <section id="contacto" class="pagina">
-            <h2 style="margin-bottom: 20px;">Impulsa tu proyecto</h2>
+            <h2 style="margin-bottom: 15px;">Impulsa tu proyecto</h2>
             <form class="form-contacto" action="mailto:contacto@pointgridmx.com" method="POST" enctype="text/plain">
                 <input type="text" name="Nombre" placeholder="Tu Nombre o Marca" required>
                 <input type="tel" name="Telefono" placeholder="Número Telefónico" required>
