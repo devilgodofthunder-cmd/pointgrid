@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Point Grid Media Agency</title>
-    <!-- FontAwesome para los íconos dinámicos de servicios -->
+    <!-- FontAwesome para los íconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* --- VARIABLES DE COLOR --- */
@@ -79,11 +79,52 @@
         .social-btn.activo-comment svg { fill: var(--text-main); transform: scale(1.15); }
         .social-btn.activo-share svg { stroke: var(--cyan-neon); transform: scale(1.15); filter: drop-shadow(0 0 6px var(--cyan-neon)); }
 
-        /* --- BURBUJA FLOTANTE WHATSAPP (TODAS LAS PÁGINAS) --- */
-        .whatsapp-float {
+        /* --- BURBUJA FLOTANTE WHATSAPP + LETRERO SEÑALADOR --- */
+        .whatsapp-container {
             position: fixed;
             bottom: 22px;
             right: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+        }
+
+        .whatsapp-callout {
+            background: rgba(10, 10, 10, 0.92);
+            color: #ffffff;
+            border: 1px solid var(--cyan-neon);
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 0.82rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 14px rgba(0, 255, 204, 0.45);
+            text-decoration: none;
+            white-space: nowrap;
+            animation: apuntar-wa 1.4s ease-in-out infinite;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .whatsapp-callout span {
+            color: var(--cyan-neon);
+            margin-left: 4px;
+        }
+
+        .whatsapp-callout:hover {
+            background: var(--cyan-neon);
+            color: #000000;
+        }
+        .whatsapp-callout:hover span {
+            color: #000000;
+        }
+
+        @keyframes apuntar-wa {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-6px); }
+        }
+
+        .whatsapp-float {
             width: 58px;
             height: 58px;
             background-color: #25d366;
@@ -93,9 +134,9 @@
             justify-content: center;
             align-items: center;
             box-shadow: 0 0 18px rgba(37, 211, 102, 0.6);
-            z-index: 2000;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
+            flex-shrink: 0;
         }
         .whatsapp-float:hover {
             transform: scale(1.12);
@@ -123,11 +164,14 @@
         
         .eslogan-inicio {
             font-size: 1.25rem;
-            color: var(--cyan-neon);
+            color: #ffffff;
             font-weight: 600;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             margin-bottom: 12px;
+        }
+        .eslogan-inicio span {
+            color: var(--cyan-neon);
         }
 
         /* Contenedor Video Horizontal */
@@ -148,11 +192,11 @@
             display: block;
         }
 
-        /* Controles de Música */
+        /* Controles de Música (Solo los 3 botones) */
         .audio-controls {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
             background: #111;
             padding: 8px 18px;
             border-radius: 30px;
@@ -163,35 +207,29 @@
             background: rgba(0, 255, 204, 0.1);
             border: 1px solid var(--cyan-neon);
             color: var(--cyan-neon);
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: 0.2s;
         }
         .audio-btn:hover {
             background: var(--cyan-neon);
             color: #000;
         }
-        .track-label {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
 
-        /* --- SERVICIOS (FRASES DINÁMICAS + TARJETAS AUTOMÁTICAS CON ÍCONOS) --- */
+        /* --- SERVICIOS (FRASES EN BLANCO + TARJETAS AUTOMÁTICAS CON ÍCONOS) --- */
         .texto-dinamico-container {
             height: 32px; margin-bottom: 10px; text-align: center;
         }
         .texto-dinamico {
             font-size: 1.3rem;
-            color: var(--cyan-neon);
-            border-right: 2px solid var(--cyan-neon);
+            color: #ffffff;
+            border-right: 2px solid #ffffff;
             white-space: nowrap;
             overflow: hidden;
             padding-right: 5px;
@@ -218,11 +256,10 @@
             transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1); 
             cursor: pointer;
             overflow: hidden; 
-            max-height: 115px; /* Colapsado */
+            max-height: 115px; 
             position: relative;
         }
 
-        /* Se abre automáticamente con la clase .abierto o cuando el usuario pasa el cursor */
         .servicio-card.abierto,
         .servicio-card:hover {
             max-height: 300px; 
@@ -250,7 +287,6 @@
             color: #ffffff; font-size: 0.85rem; line-height: 1.45; margin-bottom: 12px;
         }
 
-        /* Íconos animados dentro de cada servicio */
         .iconos-servicio {
             display: flex;
             justify-content: center;
@@ -270,21 +306,20 @@
             50% { transform: translateY(-5px) scale(1.15); text-shadow: 0 0 10px var(--cyan-neon); }
         }
 
-        /* Pausa el movimiento de los íconos si el usuario pone el cursor encima de la tarjeta */
         .servicio-card:hover .iconos-servicio i {
             animation-play-state: paused;
         }
 
-        /* --- CLIENTES (CARRUSEL 1:1 CENTRADO CON FLECHAS) --- */
+        /* --- CLIENTES (CARRUSEL 1:1 CENTRADO CON ENLACES Y FLECHAS) --- */
         .carrusel-wrapper {
             position: relative; 
             width: 100%; 
-            max-width: 380px; /* Tamaño cuadrado 1:1 ideal */
+            max-width: 380px; 
             margin: 0 auto;
         }
         .carrusel-container {
             width: 100%; 
-            aspect-ratio: 1 / 1; /* Proporción cuadrada 1:1 */
+            aspect-ratio: 1 / 1; 
             overflow: hidden; 
             position: relative; 
             border-radius: 20px;
@@ -298,8 +333,20 @@
         .slide {
             width: 25%; height: 100%; position: relative;
         }
+        .slide-link {
+            display: block;
+            width: 100%;
+            height: 100%;
+            text-decoration: none;
+            color: inherit;
+            cursor: pointer;
+        }
         .slide img { 
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.78; transition: 0.4s; 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s ease, opacity 0.4s ease; 
+        }
+        .slide-link:hover img {
+            transform: scale(1.04);
+            opacity: 0.95;
         }
         
         .info-cliente { 
@@ -309,7 +356,7 @@
             text-align: left;
         }
         .info-cliente h3 { font-size: 1.55rem; color: #fff; text-shadow: 1px 1px 4px #000; margin-bottom: 4px; text-transform: uppercase; }
-        .info-cliente p { color: var(--cyan-neon); font-weight: bold; font-size: 0.95rem; text-transform: capitalize; }
+        .info-cliente p { color: var(--cyan-neon); font-weight: bold; font-size: 0.95rem; }
 
         .flecha {
             position: absolute; top: 50%; transform: translateY(-50%);
@@ -342,8 +389,10 @@
         
         /* --- CONTACTO (FORMULARIO + CTA + DOBLE LETRERO NEÓN) --- */
         .cta-contacto {
-            color: var(--text-muted);
-            font-size: 0.95rem;
+            color: var(--cyan-neon);
+            font-size: 1.05rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
             max-width: 520px;
             text-align: center;
             margin-bottom: 5px;
@@ -357,7 +406,6 @@
         .btn-enviar { padding: 14px; background: var(--cyan-neon); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .btn-enviar:hover { background: #fff; box-shadow: 0 0 15px #fff; }
 
-        /* Contenedor de los 2 letreros neón en contacto */
         .neon-contacto-grid {
             display: flex;
             flex-wrap: wrap;
@@ -413,8 +461,8 @@
         </ul>
     </nav>
 
-    <!-- AUDIO DE FONDO EN LOOP -->
-    <audio id="bg-music" src="TRACK 1 POINT GRID.mp3" loop preload="auto"></audio>
+    <!-- AUDIO DE FONDO EN LOOP AUTOMÁTICO -->
+    <audio id="bg-music" src="TRACK 1 POINT GRID.mp3" autoplay loop preload="auto"></audio>
 
     <div id="app-container">
         
@@ -422,7 +470,7 @@
         <section id="inicio" class="pagina activa">
             <div>
                 <h1>Point <span>Grid</span> Media Agency</h1>
-                <p class="eslogan-inicio">Marketing al alcance de todos</p>
+                <p class="eslogan-inicio"><span>Marketing</span> al alcance de todos</p>
             </div>
             
             <!-- Video Horizontal en Silencio y Bucle -->
@@ -430,12 +478,11 @@
                 <video src="media point.mp4" autoplay muted loop playsinline></video>
             </div>
 
-            <!-- Controles de Audio para TRACK 1 POINT GRID -->
+            <!-- Solo los 3 botones de control de audio -->
             <div class="audio-controls">
                 <button class="audio-btn" onclick="toggleAudio()" id="btn-play-pause" title="Pausar / Reproducir">
-                    <i class="fa-solid fa-play" id="icono-play"></i>
+                    <i class="fa-solid fa-pause" id="icono-play"></i>
                 </button>
-                <span class="track-label">Track 1 Point Grid</span>
                 <button class="audio-btn" onclick="cambiarVolumen(-0.15)" title="Bajar volumen">
                     <i class="fa-solid fa-volume-low"></i>
                 </button>
@@ -455,7 +502,7 @@
         <section id="servicios" class="pagina">
             <h2>Servicios</h2>
             
-            <!-- Frases dinámicas movidas aquí desde Inicio -->
+            <!-- Frases dinámicas en blanco -->
             <div class="texto-dinamico-container">
                 <span class="texto-dinamico" id="texto-escribiendo"></span>
             </div>
@@ -529,7 +576,7 @@
             </div>
         </section>
 
-        <!-- PÁGINA 3: CLIENTES (FORMATO 1:1) -->
+        <!-- PÁGINA 3: CLIENTES (FORMATO 1:1 CON ENLACES) -->
         <section id="clientes" class="pagina">
             
             <div class="carrusel-wrapper">
@@ -537,37 +584,45 @@
                 
                 <div class="carrusel-container">
                     <div class="carrusel-track" id="track">
-                        <!-- Slide 1: Michelle Calderón -->
+                        <!-- Slide 1: Michelle Calderön -->
                         <div class="slide">
-                            <img src="MICH CALDERON.jpg" alt="Michelle Calderón">
-                            <div class="info-cliente">
-                                <h3>Michelle Calderón</h3>
-                                <p>Modelo, DJ, Imagen</p>
-                            </div>
+                            <a href="https://michellecalderon.studio" target="_blank" class="slide-link" title="Visitar sitio oficial de Michelle Calderön">
+                                <img src="MICH CALDERON.jpg" alt="Michelle Calderön">
+                                <div class="info-cliente">
+                                    <h3>Michelle Calderön</h3>
+                                    <p>Modelo, DJ, Imagen</p>
+                                </div>
+                            </a>
                         </div>
                         <!-- Slide 2: Slaughter Noise -->
                         <div class="slide">
-                            <img src="SLAUGHTER NOISE.jpg" alt="Slaughter Noise">
-                            <div class="info-cliente">
-                                <h3>Slaughter Noise</h3>
-                                <p>Organización de eventos musicales</p>
-                            </div>
+                            <a href="https://www.facebook.com/slaughternoiseprods" target="_blank" class="slide-link" title="Visitar Facebook de Slaughter Noise">
+                                <img src="SLAUGHTER NOISE.jpg" alt="Slaughter Noise">
+                                <div class="info-cliente">
+                                    <h3>Slaughter Noise</h3>
+                                    <p>Organización de eventos musicales</p>
+                                </div>
+                            </a>
                         </div>
                         <!-- Slide 3: Tzompantli -->
                         <div class="slide">
-                            <img src="TZOMPANTLI.jpg" alt="Tzompantli">
-                            <div class="info-cliente">
-                                <h3>Tzompantli</h3>
-                                <p>Festival musical</p>
-                            </div>
+                            <a href="https://www.facebook.com/profile.php?id=61555738297710" target="_blank" class="slide-link" title="Visitar Facebook de Tzompantli">
+                                <img src="TZOMPANTLI.jpg" alt="Tzompantli">
+                                <div class="info-cliente">
+                                    <h3>Tzompantli</h3>
+                                    <p>Festival musical</p>
+                                </div>
+                            </a>
                         </div>
                         <!-- Slide 4: Dr Bestia -->
                         <div class="slide">
-                            <img src="DR BESTIA.jpg" alt="Dr. Bestia">
-                            <div class="info-cliente">
-                                <h3>Dr. Bestia</h3>
-                                <p>Bar, cocktelería y snacks</p>
-                            </div>
+                            <a href="https://www.instagram.com/dr.bestiaa/" target="_blank" class="slide-link" title="Visitar Instagram de Dr. Bestia">
+                                <img src="DR BESTIA.jpg" alt="Dr. Bestia">
+                                <div class="info-cliente">
+                                    <h3>Dr. Bestia</h3>
+                                    <p>Bar, cocktelería y snacks</p>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -611,7 +666,7 @@
         <!-- PÁGINA 5: CONTACTO -->
         <section id="contacto" class="pagina">
             <h2>Impulsa tu proyecto</h2>
-            <p class="cta-contacto">¿Listo para multiplicar tus ventas, llenar tu próximo evento o posicionar tu marca? Escríbenos hoy mismo y armemos tu estrategia.</p>
+            <p class="cta-contacto">Tu estrategia personalizada a un click de distancia</p>
             
             <form class="form-contacto" action="mailto:contacto@pointgridmx.com" method="POST" enctype="text/plain">
                 <input type="text" name="Nombre" placeholder="Tu Nombre o Marca" required>
@@ -649,14 +704,19 @@
 
     </div>
 
-    <!-- BURBUJA FLOTANTE WHATSAPP SIEMPRE VISIBLE -->
-    <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
-        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
-    </a>
+    <!-- BURBUJA FLOTANTE WHATSAPP CON LETRERO SEÑALADOR -->
+    <div class="whatsapp-container">
+        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-callout" target="_blank">
+            ¡Mándanos un mensaje! <span>➔</span>
+        </a>
+        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+            <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+        </a>
+    </div>
 
     <!-- SCRIPTS -->
     <script>
-        // 1. Control de Audio (TRACK 1 POINT GRID.mp3)
+        // 1. Control de Audio Automático (TRACK 1 POINT GRID.mp3)
         const musica = document.getElementById("bg-music");
         const iconoPlay = document.getElementById("icono-play");
         musica.volume = 0.5;
@@ -687,17 +747,29 @@
             musica.volume = nuevoVol;
         }
 
-        // Intentar reproducir automáticamente al cargar o al primer toque del usuario
-        window.addEventListener('load', () => {
-            musica.play().then(actualizarIconoAudio).catch(() => {
-                document.body.addEventListener('click', function iniciarUnaVez() {
-                    musica.play().then(actualizarIconoAudio);
-                    document.body.removeEventListener('click', iniciarUnaVez);
-                });
+        function intentarReproducir() {
+            musica.play().then(() => {
+                actualizarIconoAudio();
+            }).catch(() => {
+                actualizarIconoAudio();
+                const desbloquearAudio = () => {
+                    musica.play().then(() => {
+                        actualizarIconoAudio();
+                        document.removeEventListener('click', desbloquearAudio);
+                        document.removeEventListener('touchstart', desbloquearAudio);
+                        document.removeEventListener('keydown', desbloquearAudio);
+                    });
+                };
+                document.addEventListener('click', desbloquearAudio);
+                document.addEventListener('touchstart', desbloquearAudio);
+                document.addEventListener('keydown', desbloquearAudio);
             });
-        });
+        }
 
-        // 2. Efecto Máquina de Escribir (Ahora en Servicios)
+        document.addEventListener('DOMContentLoaded', intentarReproducir);
+        window.addEventListener('load', intentarReproducir);
+
+        // 2. Efecto Máquina de Escribir (Servicios en blanco)
         const frases = ["Consigue más ventas.", "Prospectos reales.", "Hacemos que tu marca explote.", "Multiplica tus seguidores."];
         let iFrase = 0; let iLetra = 0; let borrando = false;
         const textoElemento = document.getElementById("texto-escribiendo");
@@ -745,7 +817,7 @@
             }, 400);
         }
 
-        // 4. Interacciones Aleatorias Rápidas (cada 1.5 segundos)
+        // 4. Interacciones Aleatorias Rápidas
         setInterval(() => {
             const todosLosLikes = document.querySelectorAll('.btn-like');
             const todosLosComments = document.querySelectorAll('.btn-comment');
@@ -765,7 +837,7 @@
             }
         }, 1500);
 
-        // 5. Apertura Automática Aleatoria en Servicios (se pausa con el cursor)
+        // 5. Apertura Automática Aleatoria en Servicios
         let serviciosPausados = false;
         const tarjetasServicios = document.querySelectorAll('.servicio-card');
         let indiceServicioActual = 0;
@@ -773,7 +845,6 @@
         function pausarServicios(estado) {
             serviciosPausados = estado;
             if (estado) {
-                // Cierra las que se abrieron automáticamente para dejar libre la que el usuario señala
                 tarjetasServicios.forEach(card => card.classList.remove('abierto'));
             }
         }
