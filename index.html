@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Point Grid Media Agency</title>
+    <!-- FontAwesome para los íconos dinámicos de servicios -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         /* --- VARIABLES DE COLOR --- */
         :root {
@@ -26,19 +28,19 @@
         .navbar {
             position: fixed;
             top: 0; left: 0; width: 100%;
-            background: rgba(5, 5, 5, 0.9);
+            background: rgba(5, 5, 5, 0.92);
             backdrop-filter: blur(10px);
             z-index: 1000; padding: 15px 0;
-            border-bottom: 1px solid rgba(0, 255, 204, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 204, 0.25);
         }
-        .nav-links { list-style: none; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .nav-links { list-style: none; display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
         .nav-links li a {
             color: var(--text-main);
             text-decoration: none; font-weight: bold; text-transform: uppercase;
             letter-spacing: 1px; transition: color 0.3s ease; cursor: pointer;
             font-size: 0.85rem;
         }
-        .nav-links li a:hover, .nav-links li a.active { color: var(--cyan-neon); }
+        .nav-links li a:hover, .nav-links li a.active { color: var(--cyan-neon); text-shadow: 0 0 8px rgba(0,255,204,0.6); }
 
         /* --- CONTENEDOR DE PÁGINAS --- */
         #app-container {
@@ -47,11 +49,11 @@
 
         .pagina {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            padding-top: 80px; padding-bottom: 20px;
+            padding: 80px 20px 30px 20px;
             display: none; 
-            flex-direction: column; justify-content: center; align-items: center; gap: 20px;
+            flex-direction: column; justify-content: center; align-items: center; gap: 15px;
             opacity: 0; transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.4s ease, transform 0.4s ease;
             overflow-y: auto;
         }
 
@@ -62,40 +64,133 @@
 
         /* --- BARRA SOCIAL GLOBAL --- */
         .social-bar {
-            display: flex; gap: 20px; margin-top: 15px; 
-            background: rgba(255,255,255,0.05); padding: 10px 25px; border-radius: 30px;
+            display: flex; gap: 22px; margin-top: 10px; 
+            background: rgba(255,255,255,0.06); padding: 8px 25px; border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.08);
         }
         .social-btn {
             background: none; border: none; color: var(--text-main);
             display: flex; align-items: center; gap: 8px; cursor: pointer;
-            font-size: 1rem; transition: all 0.3s ease;
+            font-size: 1rem; transition: all 0.25s ease;
         }
-        .social-btn svg { width: 24px; height: 24px; fill: transparent; stroke: currentColor; stroke-width: 2px; transition: all 0.3s ease;}
+        .social-btn svg { width: 22px; height: 22px; fill: transparent; stroke: currentColor; stroke-width: 2px; transition: all 0.25s ease;}
         
-        .social-btn.activo-like svg { fill: var(--cyan-neon); stroke: var(--cyan-neon); transform: scale(1.2); }
-        .social-btn.activo-comment svg { fill: var(--text-main); transform: scale(1.1); }
-        .social-btn.activo-share svg { stroke: var(--cyan-neon); transform: scale(1.1); }
+        .social-btn.activo-like svg { fill: var(--cyan-neon); stroke: var(--cyan-neon); transform: scale(1.25); filter: drop-shadow(0 0 6px var(--cyan-neon)); }
+        .social-btn.activo-comment svg { fill: var(--text-main); transform: scale(1.15); }
+        .social-btn.activo-share svg { stroke: var(--cyan-neon); transform: scale(1.15); filter: drop-shadow(0 0 6px var(--cyan-neon)); }
 
-        /* --- INICIO Y LETRERO NEÓN WHATSAPP --- */
-        #inicio { text-align: center; background: radial-gradient(circle at center, #1a1a1a 0%, var(--bg-color) 100%); }
+        /* --- BURBUJA FLOTANTE WHATSAPP (TODAS LAS PÁGINAS) --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 22px;
+            right: 22px;
+            width: 58px;
+            height: 58px;
+            background-color: #25d366;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 18px rgba(37, 211, 102, 0.6);
+            z-index: 2000;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover {
+            transform: scale(1.12);
+            box-shadow: 0 0 28px rgba(37, 211, 102, 0.9);
+        }
+        .whatsapp-float svg {
+            width: 32px;
+            height: 32px;
+            fill: #ffffff;
+        }
+
+        /* --- INICIO (TÍTULO, ESLOGAN, VIDEO HORIZONTAL Y AUDIO) --- */
+        #inicio { text-align: center; background: radial-gradient(circle at center, #161616 0%, var(--bg-color) 100%); }
         
         @keyframes levitar-neon {
             0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(0,255,204,0.2); }
-            50% { transform: translateY(-8px); text-shadow: 0 0 20px rgba(0,255,204,0.6), 0 0 30px rgba(0,255,204,0.4); }
+            50% { transform: translateY(-6px); text-shadow: 0 0 20px rgba(0,255,204,0.6), 0 0 35px rgba(0,255,204,0.3); }
         }
 
         #inicio h1 { 
-            font-size: 3.5rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; 
+            font-size: 3rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; 
             animation: levitar-neon 4s ease-in-out infinite; 
         }
         #inicio h1 span { color: var(--cyan-neon); }
         
+        .eslogan-inicio {
+            font-size: 1.25rem;
+            color: var(--cyan-neon);
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        /* Contenedor Video Horizontal */
+        .video-wrapper {
+            width: 92%;
+            max-width: 640px;
+            aspect-ratio: 16 / 9;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(0, 255, 204, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15);
+            background: #000;
+        }
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Controles de Música */
+        .audio-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #111;
+            padding: 8px 18px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            margin-top: 5px;
+        }
+        .audio-btn {
+            background: rgba(0, 255, 204, 0.1);
+            border: 1px solid var(--cyan-neon);
+            color: var(--cyan-neon);
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .audio-btn:hover {
+            background: var(--cyan-neon);
+            color: #000;
+        }
+        .track-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- SERVICIOS (FRASES DINÁMICAS + TARJETAS AUTOMÁTICAS CON ÍCONOS) --- */
         .texto-dinamico-container {
-            height: 40px; margin-bottom: 10px;
+            height: 32px; margin-bottom: 10px; text-align: center;
         }
         .texto-dinamico {
-            font-size: 1.5rem;
-            color: var(--text-muted);
+            font-size: 1.3rem;
+            color: var(--cyan-neon);
             border-right: 2px solid var(--cyan-neon);
             white-space: nowrap;
             overflow: hidden;
@@ -104,77 +199,98 @@
         }
         @keyframes parpadeo { 50% { border-color: transparent; } }
 
-        /* Letrero Neón Contáctanos WhatsApp */
-        .neon-whatsapp-box {
-            margin-top: 15px;
-            display: inline-block;
-        }
-        .neon-whatsapp-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 25px;
-            background: rgba(0, 255, 204, 0.05);
-            border: 2px solid var(--cyan-neon);
-            border-radius: 50px;
-            color: #ffffff;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 0 15px rgba(0,255,204,0.4), inset 0 0 10px rgba(0,255,204,0.2);
-            animation: parpadeo-neon 2s infinite alternate;
-            transition: transform 0.3s ease, background 0.3s ease;
-        }
-        .neon-whatsapp-link:hover {
-            transform: scale(1.05);
-            background: rgba(0, 255, 204, 0.15);
-            box-shadow: 0 0 25px rgba(0,255,204,0.8), inset 0 0 15px rgba(0,255,204,0.4);
-        }
-        .neon-whatsapp-link svg {
-            width: 26px;
-            height: 26px;
-            fill: #25d366;
-            filter: drop-shadow(0 0 5px #25d366);
-        }
-        @keyframes parpadeo-neon {
-            0% { border-color: rgba(0,255,204,0.4); box-shadow: 0 0 10px rgba(0,255,204,0.3); }
-            100% { border-color: rgba(0,255,204,1); box-shadow: 0 0 25px rgba(0,255,204,0.8); }
-        }
-
-        /* --- SERVICIOS (EFECTO DESPLEGABLE) --- */
         .grid-servicios {
             display: grid; 
             grid-template-columns: repeat(2, 1fr); 
-            gap: 20px; max-width: 900px; width: 90%;
+            gap: 16px; max-width: 920px; width: 92%;
         }
         @media (max-width: 768px) {
             .grid-servicios { grid-template-columns: 1fr; } 
+            #inicio h1 { font-size: 2.1rem; }
         }
-        .servicio-card {
-            background-color: var(--dark-card); padding: 25px; border-radius: 15px; border: 1px solid #333; text-align: center; transition: all 0.4s ease; cursor: pointer;
-            overflow: hidden; max-height: 110px; /* Tamaño colapsado */
-        }
-        .servicio-card:hover, .servicio-card:active {
-            max-height: 250px; /* Altura desplegada */
-            border-color: var(--cyan-neon);
-            box-shadow: 0 10px 25px rgba(0,255,204,0.15);
-            transform: translateY(-3px);
-        }
-        .servicio-card h3 { color: var(--cyan-neon); margin-bottom: 10px; font-size: 1.2rem;}
-        .servicio-card p.descripcion-corta { color: var(--text-muted); font-size: 0.9rem; }
-        .servicio-card p.descripcion-larga {
-            color: #ffffff; font-size: 0.85rem; margin-top: 12px; line-height: 1.5; opacity: 0; transition: opacity 0.3s ease;
-        }
-        .servicio-card:hover p.descripcion-larga { opacity: 1; }
 
-        /* --- CLIENTES (CARRUSEL CENTRADO CON FLECHAS) --- */
+        .servicio-card {
+            background-color: var(--dark-card); 
+            padding: 20px; 
+            border-radius: 15px; 
+            border: 1px solid #333; 
+            text-align: center; 
+            transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            cursor: pointer;
+            overflow: hidden; 
+            max-height: 115px; /* Colapsado */
+            position: relative;
+        }
+
+        /* Se abre automáticamente con la clase .abierto o cuando el usuario pasa el cursor */
+        .servicio-card.abierto,
+        .servicio-card:hover {
+            max-height: 300px; 
+            border-color: var(--cyan-neon);
+            box-shadow: 0 10px 25px rgba(0,255,204,0.18);
+            background-color: #161616;
+        }
+
+        .servicio-card h3 { color: var(--cyan-neon); margin-bottom: 6px; font-size: 1.15rem; text-transform: uppercase; }
+        .servicio-card p.descripcion-corta { color: var(--text-muted); font-size: 0.88rem; }
+        
+        .contenido-desplegable {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.35s ease;
+            margin-top: 12px;
+        }
+        .servicio-card.abierto .contenido-desplegable,
+        .servicio-card:hover .contenido-desplegable {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .descripcion-larga {
+            color: #ffffff; font-size: 0.85rem; line-height: 1.45; margin-bottom: 12px;
+        }
+
+        /* Íconos animados dentro de cada servicio */
+        .iconos-servicio {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            font-size: 1.35rem;
+            color: var(--cyan-neon);
+        }
+        .iconos-servicio i {
+            animation: flotar-icono 2.2s ease-in-out infinite;
+        }
+        .iconos-servicio i:nth-child(2) { animation-delay: 0.3s; }
+        .iconos-servicio i:nth-child(3) { animation-delay: 0.6s; }
+        .iconos-servicio i:nth-child(4) { animation-delay: 0.9s; }
+
+        @keyframes flotar-icono {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-5px) scale(1.15); text-shadow: 0 0 10px var(--cyan-neon); }
+        }
+
+        /* Pausa el movimiento de los íconos si el usuario pone el cursor encima de la tarjeta */
+        .servicio-card:hover .iconos-servicio i {
+            animation-play-state: paused;
+        }
+
+        /* --- CLIENTES (CARRUSEL 1:1 CENTRADO CON FLECHAS) --- */
         .carrusel-wrapper {
-            position: relative; width: 100%; max-width: 350px; height: 62vh; margin: 0 auto;
+            position: relative; 
+            width: 100%; 
+            max-width: 380px; /* Tamaño cuadrado 1:1 ideal */
+            margin: 0 auto;
         }
         .carrusel-container {
-            width: 100%; height: 100%; overflow: hidden; position: relative; border-radius: 20px;
+            width: 100%; 
+            aspect-ratio: 1 / 1; /* Proporción cuadrada 1:1 */
+            overflow: hidden; 
+            position: relative; 
+            border-radius: 20px;
+            border: 2px solid rgba(0, 255, 204, 0.35);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            background: #111;
         }
         .carrusel-track {
             display: flex; width: 400%; height: 100%; transition: transform 0.5s ease-in-out;
@@ -182,53 +298,111 @@
         .slide {
             width: 25%; height: 100%; position: relative;
         }
-        .slide img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; }
+        .slide img { 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.78; transition: 0.4s; 
+        }
         
-        .info-cliente { position: absolute; bottom: 30px; left: 20px; right: 20px; text-align: left;}
-        .info-cliente h3 { font-size: 1.8rem; color: #fff; text-shadow: 2px 2px 5px #000; margin-bottom: 5px; }
-        .info-cliente p { color: var(--cyan-neon); font-weight: bold; text-shadow: 1px 1px 3px #000; font-size: 1rem; }
+        .info-cliente { 
+            position: absolute; bottom: 0; left: 0; right: 0; 
+            padding: 35px 20px 20px 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent 100%);
+            text-align: left;
+        }
+        .info-cliente h3 { font-size: 1.55rem; color: #fff; text-shadow: 1px 1px 4px #000; margin-bottom: 4px; text-transform: uppercase; }
+        .info-cliente p { color: var(--cyan-neon); font-weight: bold; font-size: 0.95rem; text-transform: capitalize; }
 
         .flecha {
             position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.7); color: white; border: 1px solid var(--cyan-neon);
-            width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid var(--cyan-neon);
+            width: 42px; height: 42px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
             cursor: pointer; z-index: 10; font-size: 1.2rem; transition: 0.3s;
         }
-        .flecha:hover { background: var(--cyan-neon); color: black; }
-        .flecha-izq { left: -50px; }
-        .flecha-der { right: -50px; }
-        @media (max-width: 600px) {
-            .flecha-izq { left: 10px; } .flecha-der { right: 10px; } 
+        .flecha:hover { background: var(--cyan-neon); color: black; box-shadow: 0 0 15px var(--cyan-neon); }
+        .flecha-izq { left: -55px; }
+        .flecha-der { right: -55px; }
+        @media (max-width: 540px) {
+            .carrusel-wrapper { max-width: 310px; }
+            .flecha-izq { left: 8px; } .flecha-der { right: 8px; } 
         }
 
-        .carrusel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
-        .dot { width: 10px; height: 10px; background: #555; border-radius: 50%; transition: 0.3s; }
-        .dot.activo { background: var(--cyan-neon); width: 20px; border-radius: 5px; }
+        .carrusel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
+        .dot { width: 10px; height: 10px; background: #555; border-radius: 50%; transition: 0.3s; cursor: pointer; }
+        .dot.activo { background: var(--cyan-neon); width: 22px; border-radius: 5px; }
 
         /* --- POINT SHOCK --- */
         #point-shock { text-align: center; padding: 20px; }
-        .etiqueta-descubre { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: -5px; }
-        #point-shock h2 { font-size: 3.5rem; color: var(--cyan-neon); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 10px rgba(0,255,204,0.5); }
+        .etiqueta-descubre { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: -5px; }
+        #point-shock h2 { font-size: 3.5rem; color: var(--cyan-neon); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 12px rgba(0,255,204,0.5); }
         .cartel-pronto { 
-            background: #ff0055; color: white; padding: 8px 25px; font-size: 1.8rem; font-weight: bold; 
+            background: #ff0055; color: white; padding: 8px 28px; font-size: 1.7rem; font-weight: bold; 
             border-radius: 10px; display: inline-block; transform: rotate(-3deg); margin-bottom: 20px; 
             box-shadow: 0 10px 20px rgba(255,0,85,0.4);
         }
-        #point-shock p { font-size: 1.1rem; color: var(--text-main); max-width: 700px; margin: 0 auto 10px auto; line-height: 1.5; }
+        #point-shock p { font-size: 1.15rem; color: var(--text-main); max-width: 700px; margin: 0 auto 10px auto; line-height: 1.5; }
         
-        /* --- CONTACTO --- */
-        .form-contacto { width: 100%; max-width: 500px; display: flex; flex-direction: column; gap: 15px; }
+        /* --- CONTACTO (FORMULARIO + CTA + DOBLE LETRERO NEÓN) --- */
+        .cta-contacto {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 520px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        .form-contacto { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 12px; }
         .form-contacto input, .form-contacto select, .form-contacto textarea {
-            padding: 15px; background: var(--dark-card); border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 1rem;
+            padding: 13px; background: var(--dark-card); border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.95rem;
         }
         .form-contacto input:focus, .form-contacto select:focus, .form-contacto textarea:focus { outline: none; border-color: var(--cyan-neon); }
-        .btn-enviar { padding: 15px; background: var(--cyan-neon); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn-enviar:hover { background: #fff; }
+        .form-contacto textarea { height: 90px; resize: none; }
+        .btn-enviar { padding: 14px; background: var(--cyan-neon); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-enviar:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+
+        /* Contenedor de los 2 letreros neón en contacto */
+        .neon-contacto-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .neon-btn-contacto {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 204, 0.06);
+            border: 2px solid var(--cyan-neon);
+            border-radius: 50px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 12px rgba(0,255,204,0.35), inset 0 0 8px rgba(0,255,204,0.15);
+            animation: parpadeo-neon 2s infinite alternate;
+            transition: transform 0.3s ease, background 0.3s ease;
+        }
+        .neon-btn-contacto:hover {
+            transform: scale(1.05);
+            background: rgba(0, 255, 204, 0.18);
+            box-shadow: 0 0 22px rgba(0,255,204,0.8);
+        }
+        .neon-btn-contacto i {
+            font-size: 1.2rem;
+            color: var(--cyan-neon);
+        }
+        .neon-btn-contacto.wa-neon i {
+            color: #25d366;
+        }
+        @keyframes parpadeo-neon {
+            0% { border-color: rgba(0,255,204,0.45); box-shadow: 0 0 10px rgba(0,255,204,0.25); }
+            100% { border-color: rgba(0,255,204,1); box-shadow: 0 0 22px rgba(0,255,204,0.75); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- MENÚ -->
+    <!-- MENÚ SUPERIOR -->
     <nav class="navbar">
         <ul class="nav-links">
             <li><a onclick="navegarA('inicio')" class="active">Inicio</a></li>
@@ -239,25 +413,37 @@
         </ul>
     </nav>
 
+    <!-- AUDIO DE FONDO EN LOOP -->
+    <audio id="bg-music" src="TRACK 1 POINT GRID.mp3" loop preload="auto"></audio>
+
     <div id="app-container">
         
         <!-- PÁGINA 1: INICIO -->
         <section id="inicio" class="pagina activa">
             <div>
                 <h1>Point <span>Grid</span> Media Agency</h1>
-                <div class="texto-dinamico-container">
-                    <span class="texto-dinamico" id="texto-escribiendo"></span>
-                </div>
-                
-                <!-- Letrero Neón WhatsApp con Número -->
-                <div class="neon-whatsapp-box">
-                    <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-whatsapp-link" target="_blank">
-                        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
-                        <span>Contáctanos: 56 6746 2837</span>
-                    </a>
-                </div>
+                <p class="eslogan-inicio">Marketing al alcance de todos</p>
             </div>
             
+            <!-- Video Horizontal en Silencio y Bucle -->
+            <div class="video-wrapper">
+                <video src="media point.mp4" autoplay muted loop playsinline></video>
+            </div>
+
+            <!-- Controles de Audio para TRACK 1 POINT GRID -->
+            <div class="audio-controls">
+                <button class="audio-btn" onclick="toggleAudio()" id="btn-play-pause" title="Pausar / Reproducir">
+                    <i class="fa-solid fa-play" id="icono-play"></i>
+                </button>
+                <span class="track-label">Track 1 Point Grid</span>
+                <button class="audio-btn" onclick="cambiarVolumen(-0.15)" title="Bajar volumen">
+                    <i class="fa-solid fa-volume-low"></i>
+                </button>
+                <button class="audio-btn" onclick="cambiarVolumen(0.15)" title="Subir volumen">
+                    <i class="fa-solid fa-volume-high"></i>
+                </button>
+            </div>
+
             <div class="social-bar">
                 <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
                 <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
@@ -265,33 +451,73 @@
             </div>
         </section>
 
-        <!-- PÁGINA 2: SERVICIOS (DESPLETABLES) -->
+        <!-- PÁGINA 2: SERVICIOS -->
         <section id="servicios" class="pagina">
             <h2>Servicios</h2>
+            
+            <!-- Frases dinámicas movidas aquí desde Inicio -->
+            <div class="texto-dinamico-container">
+                <span class="texto-dinamico" id="texto-escribiendo"></span>
+            </div>
+
             <div class="grid-servicios">
                 
-                <div class="servicio-card">
+                <!-- Servicio 1 -->
+                <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Redes & Ads</h3>
-                    <p class="descripcion-corta">Meta, TikTok y Google Ads. Embudos robustos.</p>
-                    <p class="descripcion-larga">¿Necesitas campañas para tu página de Facebook, TikTok y redes? Ya sea para tu marca de ropa, bebida artesanal o proyecto musical, nosotros te ayudamos a captar clientes calificados.</p>
+                    <p class="descripcion-corta">Campañas digitales y desarrollo web de alto impacto.</p>
+                    <div class="contenido-desplegable">
+                        <p class="descripcion-larga">¿Necesitas campañas para Facebook, Instagram, TikTok o tu propia página web? Impulsamos tu marca de ropa, bebida artesanal o negocio con anuncios que sí venden.</p>
+                        <div class="iconos-servicio">
+                            <i class="fa-brands fa-instagram" title="Instagram"></i>
+                            <i class="fa-brands fa-tiktok" title="TikTok"></i>
+                            <i class="fa-brands fa-facebook" title="Facebook"></i>
+                            <i class="fa-solid fa-globe" title="Página Web"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="servicio-card">
+                <!-- Servicio 2 -->
+                <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Crecimiento Artístico</h3>
-                    <p class="descripcion-corta">Estrategias especializadas para músicos y creativos.</p>
-                    <p class="descripcion-larga">Incrementa tu audiencia real, reproduce más tus temas y llena tus próximos shows con estrategias digitales diseñadas exclusivamente para la escena musical.</p>
+                    <p class="descripcion-corta">Proyección, streaming y management para talento.</p>
+                    <div class="contenido-desplegable">
+                        <p class="descripcion-larga">Llevamos tu proyecto musical al siguiente nivel. Posicionamos tus lanzamientos en plataformas digitales y gestionamos tu imagen para llenar tus próximos shows.</p>
+                        <div class="iconos-servicio">
+                            <i class="fa-brands fa-youtube" title="YouTube"></i>
+                            <i class="fa-brands fa-spotify" title="Spotify"></i>
+                            <i class="fa-solid fa-user-tie" title="Management"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="servicio-card">
+                <!-- Servicio 3 -->
+                <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Activaciones BTL</h3>
-                    <p class="descripcion-corta">Lleva tu marca al mundo físico con impacto.</p>
-                    <p class="descripcion-larga">Coordinamos stands, merchandise y talento promocional en terreno para que tu marca interactúe directamente con tu consumidor y genere conversiones físicas.</p>
+                    <p class="descripcion-corta">Presencia física, talento promocional y branding.</p>
+                    <div class="contenido-desplegable">
+                        <p class="descripcion-larga">Conecta cara a cara con tu público. Contamos con edecanes, animadores y material promocional diseñado para que tu marca destaque en cualquier punto de venta.</p>
+                        <div class="iconos-servicio">
+                            <i class="fa-solid fa-person-dress" title="Edecanes"></i>
+                            <i class="fa-solid fa-gift" title="Material Promocional"></i>
+                            <i class="fa-solid fa-bullhorn" title="Animadores"></i>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="servicio-card">
-                    <h3>Eventos & Experiencias</h3>
-                    <p class="descripcion-corta">Planeación de dinámicas, DJs y booking.</p>
-                    <p class="descripcion-larga">Nos encargamos de estructurar tu evento especial de principio a fin, integrando ambientación, DJs y artistas para garantizar una experiencia inolvidable.</p>
+                <!-- Servicio 4 -->
+                <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
+                    <h3>Eventos & Expos</h3>
+                    <p class="descripcion-corta">Producción integral, stands y ambientación.</p>
+                    <div class="contenido-desplegable">
+                        <p class="descripcion-larga">Armamos la experiencia completa para tu evento o expo: montaje de stands, DJs en vivo, música y personajes temáticos que atraen todas las miradas.</p>
+                        <div class="iconos-servicio">
+                            <i class="fa-solid fa-store" title="Stands"></i>
+                            <i class="fa-solid fa-compact-disc" title="DJs"></i>
+                            <i class="fa-solid fa-music" title="Música"></i>
+                            <i class="fa-solid fa-mask" title="Personajes"></i>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -303,7 +529,7 @@
             </div>
         </section>
 
-        <!-- PÁGINA 3: CLIENTES -->
+        <!-- PÁGINA 3: CLIENTES (FORMATO 1:1) -->
         <section id="clientes" class="pagina">
             
             <div class="carrusel-wrapper">
@@ -311,36 +537,36 @@
                 
                 <div class="carrusel-container">
                     <div class="carrusel-track" id="track">
-                        <!-- Slide 1 -->
+                        <!-- Slide 1: Michelle Calderón -->
                         <div class="slide">
-                            <img src="https://images.unsplash.com/photo-1516726817505-f5ed825624d8?w=800&q=80" alt="Michelle">
+                            <img src="MICH CALDERON.jpg" alt="Michelle Calderón">
                             <div class="info-cliente">
                                 <h3>Michelle Calderón</h3>
-                                <p>Modelo & Músico</p>
+                                <p>Modelo, DJ, Imagen</p>
                             </div>
                         </div>
-                        <!-- Slide 2 -->
+                        <!-- Slide 2: Slaughter Noise -->
                         <div class="slide">
-                            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=800&q=80" alt="Slaughter">
+                            <img src="SLAUGHTER NOISE.jpg" alt="Slaughter Noise">
                             <div class="info-cliente">
                                 <h3>Slaughter Noise</h3>
-                                <p>Eventos Musicales</p>
+                                <p>Organización de eventos musicales</p>
                             </div>
                         </div>
-                        <!-- Slide 3 -->
+                        <!-- Slide 3: Tzompantli -->
                         <div class="slide">
-                            <img src="https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&q=80" alt="Tzompantli">
+                            <img src="TZOMPANTLI.jpg" alt="Tzompantli">
                             <div class="info-cliente">
                                 <h3>Tzompantli</h3>
-                                <p>Festival de Heavy Metal</p>
+                                <p>Festival musical</p>
                             </div>
                         </div>
-                        <!-- Slide 4 -->
+                        <!-- Slide 4: Dr Bestia -->
                         <div class="slide">
-                            <img src="https://images.unsplash.com/photo-1493225457124-a1a2a5f5f92e?w=800&q=80" alt="Dr Bestia">
+                            <img src="DR BESTIA.jpg" alt="Dr. Bestia">
                             <div class="info-cliente">
                                 <h3>Dr. Bestia</h3>
-                                <p>Proyecto Musical</p>
+                                <p>Bar, cocktelería y snacks</p>
                             </div>
                         </div>
                     </div>
@@ -349,7 +575,10 @@
                 <button class="flecha flecha-der" onclick="moverCarrusel(1)">&#10095;</button>
                 
                 <div class="carrusel-dots">
-                    <div class="dot activo"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div>
+                    <div class="dot activo" onclick="irASlide(0)"></div>
+                    <div class="dot" onclick="irASlide(1)"></div>
+                    <div class="dot" onclick="irASlide(2)"></div>
+                    <div class="dot" onclick="irASlide(3)"></div>
                 </div>
             </div>
 
@@ -360,7 +589,7 @@
             </div>
         </section>
 
-        <!-- PÁGINA 4: POINT SHOCK (ACTUALIZADA) -->
+        <!-- PÁGINA 4: POINT SHOCK -->
         <section id="point-shock" class="pagina">
             <div>
                 <p class="etiqueta-descubre">Descubre</p>
@@ -368,7 +597,7 @@
                 
                 <div class="cartel-pronto">¡MUY PRONTO!</div>
                 
-                <p style="color: var(--cyan-neon); font-weight: bold; font-size: 1.2rem;">Visibilidad de alto impacto para tu proyecto.</p>
+                <p style="color: var(--cyan-neon); font-weight: bold; font-size: 1.25rem;">Visibilidad de alto impacto para tu proyecto.</p>
                 <p><strong>Exclusivo de YouTube.</strong></p>
             </div>
 
@@ -379,9 +608,11 @@
             </div>
         </section>
 
-        <!-- PÁGINA 5: CONTACTO (ENLAZADO A CORREO) -->
+        <!-- PÁGINA 5: CONTACTO -->
         <section id="contacto" class="pagina">
-            <h2 style="margin-bottom: 15px;">Impulsa tu proyecto</h2>
+            <h2>Impulsa tu proyecto</h2>
+            <p class="cta-contacto">¿Listo para multiplicar tus ventas, llenar tu próximo evento o posicionar tu marca? Escríbenos hoy mismo y armemos tu estrategia.</p>
+            
             <form class="form-contacto" action="mailto:contacto@pointgridmx.com" method="POST" enctype="text/plain">
                 <input type="text" name="Nombre" placeholder="Tu Nombre o Marca" required>
                 <input type="tel" name="Telefono" placeholder="Número Telefónico" required>
@@ -393,8 +624,21 @@
                     <option value="Otro">Otro</option>
                 </select>
                 <textarea name="Mensaje" placeholder="Cuéntanos sobre tu proyecto..." required></textarea>
-                <button type="submit" class="btn-enviar">ENVIAR MENSAJE</button>
+                <button type="submit" class="btn-enviar">Enviar Mensaje</button>
             </form>
+
+            <!-- Doble Letrero Neón: WhatsApp + Correo Electrónico -->
+            <div class="neon-contacto-grid">
+                <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-btn-contacto wa-neon" target="_blank">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <span>Contáctanos: 56 6746 2837</span>
+                </a>
+
+                <a href="mailto:contacto@pointgridmx.com?subject=Quiero%20impulsar%20mi%20marca%20-%20Point%20Grid" class="neon-btn-contacto">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>contacto@pointgridmx.com</span>
+                </a>
+            </div>
 
             <div class="social-bar">
                 <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
@@ -405,9 +649,55 @@
 
     </div>
 
+    <!-- BURBUJA FLOTANTE WHATSAPP SIEMPRE VISIBLE -->
+    <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
+    </a>
+
     <!-- SCRIPTS -->
     <script>
-        // 1. Efecto Máquina de Escribir (Inicio)
+        // 1. Control de Audio (TRACK 1 POINT GRID.mp3)
+        const musica = document.getElementById("bg-music");
+        const iconoPlay = document.getElementById("icono-play");
+        musica.volume = 0.5;
+
+        function actualizarIconoAudio() {
+            if (musica.paused) {
+                iconoPlay.classList.remove("fa-pause");
+                iconoPlay.classList.add("fa-play");
+            } else {
+                iconoPlay.classList.remove("fa-play");
+                iconoPlay.classList.add("fa-pause");
+            }
+        }
+
+        function toggleAudio() {
+            if (musica.paused) {
+                musica.play();
+            } else {
+                musica.pause();
+            }
+            actualizarIconoAudio();
+        }
+
+        function cambiarVolumen(cambio) {
+            let nuevoVol = musica.volume + cambio;
+            if (nuevoVol > 1) nuevoVol = 1;
+            if (nuevoVol < 0) nuevoVol = 0;
+            musica.volume = nuevoVol;
+        }
+
+        // Intentar reproducir automáticamente al cargar o al primer toque del usuario
+        window.addEventListener('load', () => {
+            musica.play().then(actualizarIconoAudio).catch(() => {
+                document.body.addEventListener('click', function iniciarUnaVez() {
+                    musica.play().then(actualizarIconoAudio);
+                    document.body.removeEventListener('click', iniciarUnaVez);
+                });
+            });
+        });
+
+        // 2. Efecto Máquina de Escribir (Ahora en Servicios)
         const frases = ["Consigue más ventas.", "Prospectos reales.", "Hacemos que tu marca explote.", "Multiplica tus seguidores."];
         let iFrase = 0; let iLetra = 0; let borrando = false;
         const textoElemento = document.getElementById("texto-escribiendo");
@@ -423,55 +713,81 @@
                 iLetra++;
             }
 
-            let velocidad = borrando ? 50 : 100;
+            let velocidad = borrando ? 45 : 90;
 
             if (!borrando && iLetra === fraseActual.length) {
-                velocidad = 2000; 
+                velocidad = 1800; 
                 borrando = true;
             } else if (borrando && iLetra === 0) {
                 borrando = false;
                 iFrase = (iFrase + 1) % frases.length;
-                velocidad = 500; 
+                velocidad = 400; 
             }
 
             setTimeout(maquinaEscribir, velocidad);
         }
         maquinaEscribir();
 
-        // 2. Navegación
+        // 3. Navegación entre páginas
         function navegarA(idPagina) {
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             event.target.classList.add('active');
 
             document.querySelectorAll('.pagina').forEach(pag => {
                 pag.classList.remove('activa');
-                setTimeout(() => { pag.style.display = 'none'; }, 500); 
+                setTimeout(() => { pag.style.display = 'none'; }, 400); 
             });
 
             setTimeout(() => {
                 const nuevaPagina = document.getElementById(idPagina);
                 nuevaPagina.style.display = 'flex';
-                setTimeout(() => { nuevaPagina.classList.add('activa'); }, 50);
-            }, 500);
+                setTimeout(() => { nuevaPagina.classList.add('activa'); }, 40);
+            }, 400);
         }
 
-        // 3. Simulación de Interacciones Aleatorias
+        // 4. Interacciones Aleatorias Rápidas (cada 1.5 segundos)
         setInterval(() => {
             const todosLosLikes = document.querySelectorAll('.btn-like');
             const todosLosComments = document.querySelectorAll('.btn-comment');
+            const todosLosShares = document.querySelectorAll('.btn-share');
             
-            if(Math.random() > 0.5) {
-                const likeAzar = todosLosLikes[Math.floor(Math.random() * todosLosLikes.length)];
-                likeAzar.classList.toggle('activo-like');
-            }
+            const likeAzar = todosLosLikes[Math.floor(Math.random() * todosLosLikes.length)];
+            likeAzar.classList.toggle('activo-like');
             
-            if(Math.random() > 0.7) {
+            if(Math.random() > 0.4) {
                 const commentAzar = todosLosComments[Math.floor(Math.random() * todosLosComments.length)];
                 commentAzar.classList.toggle('activo-comment');
             }
-        }, 2000); 
 
-        // 4. Carrusel Centrado con Flechas
+            if(Math.random() > 0.5) {
+                const shareAzar = todosLosShares[Math.floor(Math.random() * todosLosShares.length)];
+                shareAzar.classList.toggle('activo-share');
+            }
+        }, 1500);
+
+        // 5. Apertura Automática Aleatoria en Servicios (se pausa con el cursor)
+        let serviciosPausados = false;
+        const tarjetasServicios = document.querySelectorAll('.servicio-card');
+        let indiceServicioActual = 0;
+
+        function pausarServicios(estado) {
+            serviciosPausados = estado;
+            if (estado) {
+                // Cierra las que se abrieron automáticamente para dejar libre la que el usuario señala
+                tarjetasServicios.forEach(card => card.classList.remove('abierto'));
+            }
+        }
+
+        setInterval(() => {
+            if (serviciosPausados) return;
+
+            tarjetasServicios.forEach(card => card.classList.remove('abierto'));
+            tarjetasServicios[indiceServicioActual].classList.add('abierto');
+            
+            indiceServicioActual = (indiceServicioActual + 1) % tarjetasServicios.length;
+        }, 3000);
+
+        // 6. Carrusel Centrado 1:1 con Flechas
         let slideActual = 0;
         const totalSlides = 4; 
         const track = document.getElementById('track');
@@ -490,6 +806,12 @@
             if (slideActual < 0) slideActual = totalSlides - 1;
             actualizarCarrusel();
             resetearIntervalo(); 
+        }
+
+        function irASlide(indice) {
+            slideActual = indice;
+            actualizarCarrusel();
+            resetearIntervalo();
         }
 
         function autoPlay() {
