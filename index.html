@@ -33,14 +33,30 @@
             z-index: 1000; padding: 15px 0;
             border-bottom: 1px solid rgba(0, 255, 204, 0.25);
         }
-        .nav-links { list-style: none; display: flex; justify-content: center; gap: 22px; flex-wrap: wrap; }
+        .nav-links { list-style: none; display: flex; justify-content: center; align-items: center; gap: 22px; flex-wrap: wrap; }
         .nav-links li a {
             color: var(--text-main);
             text-decoration: none; font-weight: bold; text-transform: uppercase;
-            letter-spacing: 1px; transition: color 0.3s ease; cursor: pointer;
+            letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer;
             font-size: 0.85rem;
         }
         .nav-links li a:hover, .nav-links li a.active { color: var(--cyan-neon); text-shadow: 0 0 8px rgba(0,255,204,0.6); }
+
+        /* Botón especial al final del menú para Perfect Point */
+        .nav-links li a.btn-perfect-point {
+            border: 1px solid var(--cyan-neon);
+            color: var(--cyan-neon);
+            padding: 6px 14px;
+            border-radius: 20px;
+            background: rgba(0, 255, 204, 0.08);
+        }
+        .nav-links li a.btn-perfect-point:hover,
+        .nav-links li a.btn-perfect-point.active {
+            background: var(--cyan-neon);
+            color: #000000;
+            text-shadow: none;
+            box-shadow: 0 0 14px rgba(0, 255, 204, 0.65);
+        }
 
         /* --- CONTENEDOR DE PÁGINAS --- */
         #app-container {
@@ -148,7 +164,7 @@
             fill: #ffffff;
         }
 
-        /* --- INICIO (TÍTULO, ESLOGAN, VIDEO HORIZONTAL Y AUDIO) --- */
+        /* --- INICIO --- */
         #inicio { text-align: center; background: radial-gradient(circle at center, #161616 0%, var(--bg-color) 100%); }
         
         @keyframes levitar-neon {
@@ -174,7 +190,6 @@
             color: var(--cyan-neon);
         }
 
-        /* Contenedor Video Horizontal */
         .video-wrapper {
             width: 92%;
             max-width: 640px;
@@ -192,7 +207,6 @@
             display: block;
         }
 
-        /* Controles de Música (Solo los 3 botones) */
         .audio-controls {
             display: flex;
             align-items: center;
@@ -222,7 +236,7 @@
             color: #000;
         }
 
-        /* --- SERVICIOS (FRASES EN BLANCO + TARJETAS AUTOMÁTICAS CON ÍCONOS) --- */
+        /* --- SERVICIOS --- */
         .texto-dinamico-container {
             height: 32px; margin-bottom: 10px; text-align: center;
         }
@@ -310,7 +324,7 @@
             animation-play-state: paused;
         }
 
-        /* --- CLIENTES (CARRUSEL 1:1 CENTRADO CON ENLACES Y FLECHAS) --- */
+        /* --- CLIENTES --- */
         .carrusel-wrapper {
             position: relative; 
             width: 100%; 
@@ -387,7 +401,7 @@
         }
         #point-shock p { font-size: 1.15rem; color: var(--text-main); max-width: 700px; margin: 0 auto 10px auto; line-height: 1.5; }
         
-        /* --- CONTACTO (FORMULARIO + CTA + DOBLE LETRERO NEÓN) --- */
+        /* --- CONTACTO --- */
         .cta-contacto {
             color: var(--cyan-neon);
             font-size: 1.05rem;
@@ -446,6 +460,122 @@
             0% { border-color: rgba(0,255,204,0.45); box-shadow: 0 0 10px rgba(0,255,204,0.25); }
             100% { border-color: rgba(0,255,204,1); box-shadow: 0 0 22px rgba(0,255,204,0.75); }
         }
+
+        /* --- PERFECT POINT (ACCESO Y APP) --- */
+        #perfect-point {
+            justify-content: flex-start;
+            padding-top: 90px;
+            text-align: center;
+        }
+        .pp-box {
+            width: 100%;
+            max-width: 540px;
+            background: var(--dark-card);
+            border: 1px solid rgba(0, 255, 204, 0.35);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.12);
+        }
+        .pp-box h2 {
+            color: var(--cyan-neon);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+        .pp-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+            line-height: 1.45;
+        }
+        .pp-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .pp-tab-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #333;
+            background: #0a0a0a;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+        .pp-tab-btn.activo {
+            border-color: var(--cyan-neon);
+            color: var(--cyan-neon);
+            background: rgba(0, 255, 204, 0.12);
+        }
+        .pp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            text-align: left;
+        }
+        .pp-form input {
+            padding: 12px;
+            background: #080808;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+        .pp-form input:focus {
+            outline: none;
+            border-color: var(--cyan-neon);
+        }
+        .pp-msg {
+            margin-top: 10px;
+            font-size: 0.88rem;
+            color: var(--cyan-neon);
+            text-align: center;
+        }
+        .pp-app-frame-wrap {
+            display: none;
+            width: 100%;
+            max-width: 1200px;
+            height: 75vh;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 204, 0.4);
+            background: #0a0a0a;
+            flex-direction: column;
+        }
+        .pp-app-toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 16px;
+            background: #111;
+            border-bottom: 1px solid #222;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .pp-app-toolbar span {
+            color: var(--cyan-neon);
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+        .pp-app-toolbar a, .pp-app-toolbar button {
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--cyan-neon);
+            background: rgba(0, 255, 204, 0.12);
+            color: #fff;
+            font-size: 0.82rem;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .pp-app-frame-wrap iframe {
+            width: 100%;
+            flex: 1;
+            border: none;
+            background: #050505;
+        }
     </style>
 </head>
 <body>
@@ -453,11 +583,12 @@
     <!-- MENÚ SUPERIOR -->
     <nav class="navbar">
         <ul class="nav-links">
-            <li><a onclick="navegarA('inicio')" class="active">Inicio</a></li>
-            <li><a onclick="navegarA('servicios')">Servicios</a></li>
-            <li><a onclick="navegarA('clientes')">Clientes</a></li>
-            <li><a onclick="navegarA('point-shock')">Point Shock</a></li>
-            <li><a onclick="navegarA('contacto')">Contacto</a></li>
+            <li><a onclick="navegarA('inicio', this)" class="active">Inicio</a></li>
+            <li><a onclick="navegarA('servicios', this)">Servicios</a></li>
+            <li><a onclick="navegarA('clientes', this)">Clientes</a></li>
+            <li><a onclick="navegarA('point-shock', this)">Point Shock</a></li>
+            <li><a onclick="navegarA('contacto', this)">Contacto</a></li>
+            <li><a onclick="navegarA('perfect-point', this)" class="btn-perfect-point">Perfect Point</a></li>
         </ul>
     </nav>
 
@@ -473,12 +604,10 @@
                 <p class="eslogan-inicio"><span>Marketing</span> al alcance de todos</p>
             </div>
             
-            <!-- Video Horizontal en Silencio y Bucle -->
             <div class="video-wrapper">
                 <video src="media point.mp4" autoplay muted loop playsinline></video>
             </div>
 
-            <!-- Solo los 3 botones de control de audio -->
             <div class="audio-controls">
                 <button class="audio-btn" onclick="toggleAudio()" id="btn-play-pause" title="Pausar / Reproducir">
                     <i class="fa-solid fa-pause" id="icono-play"></i>
@@ -502,14 +631,11 @@
         <section id="servicios" class="pagina">
             <h2>Servicios</h2>
             
-            <!-- Frases dinámicas en blanco -->
             <div class="texto-dinamico-container">
                 <span class="texto-dinamico" id="texto-escribiendo"></span>
             </div>
 
             <div class="grid-servicios">
-                
-                <!-- Servicio 1 -->
                 <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Redes & Ads</h3>
                     <p class="descripcion-corta">Campañas digitales y desarrollo web de alto impacto.</p>
@@ -524,7 +650,6 @@
                     </div>
                 </div>
 
-                <!-- Servicio 2 -->
                 <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Crecimiento Artístico</h3>
                     <p class="descripcion-corta">Proyección, streaming y management para talento.</p>
@@ -538,7 +663,6 @@
                     </div>
                 </div>
 
-                <!-- Servicio 3 -->
                 <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Activaciones BTL</h3>
                     <p class="descripcion-corta">Presencia física, talento promocional y branding.</p>
@@ -552,7 +676,6 @@
                     </div>
                 </div>
 
-                <!-- Servicio 4 -->
                 <div class="servicio-card" onmouseenter="pausarServicios(true)" onmouseleave="pausarServicios(false)">
                     <h3>Eventos & Expos</h3>
                     <p class="descripcion-corta">Producción integral, stands y ambientación.</p>
@@ -566,7 +689,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="social-bar">
@@ -576,15 +698,13 @@
             </div>
         </section>
 
-        <!-- PÁGINA 3: CLIENTES (FORMATO 1:1 CON ENLACES) -->
+        <!-- PÁGINA 3: CLIENTES -->
         <section id="clientes" class="pagina">
-            
             <div class="carrusel-wrapper">
                 <button class="flecha flecha-izq" onclick="moverCarrusel(-1)">&#10094;</button>
                 
                 <div class="carrusel-container">
                     <div class="carrusel-track" id="track">
-                        <!-- Slide 1: Michelle Calderön -->
                         <div class="slide">
                             <a href="https://michellecalderon.studio" target="_blank" class="slide-link" title="Visitar sitio oficial de Michelle Calderön">
                                 <img src="MICH CALDERON.jpg" alt="Michelle Calderön">
@@ -594,7 +714,6 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- Slide 2: Slaughter Noise -->
                         <div class="slide">
                             <a href="https://www.facebook.com/slaughternoiseprods" target="_blank" class="slide-link" title="Visitar Facebook de Slaughter Noise">
                                 <img src="SLAUGHTER NOISE.jpg" alt="Slaughter Noise">
@@ -604,7 +723,6 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- Slide 3: Tzompantli -->
                         <div class="slide">
                             <a href="https://www.facebook.com/profile.php?id=61555738297710" target="_blank" class="slide-link" title="Visitar Facebook de Tzompantli">
                                 <img src="TZOMPANTLI.jpg" alt="Tzompantli">
@@ -614,7 +732,6 @@
                                 </div>
                             </a>
                         </div>
-                        <!-- Slide 4: Dr Bestia -->
                         <div class="slide">
                             <a href="https://www.instagram.com/dr.bestiaa/" target="_blank" class="slide-link" title="Visitar Instagram de Dr. Bestia">
                                 <img src="DR BESTIA.jpg" alt="Dr. Bestia">
@@ -682,7 +799,6 @@
                 <button type="submit" class="btn-enviar">Enviar Mensaje</button>
             </form>
 
-            <!-- Doble Letrero Neón: WhatsApp + Correo Electrónico -->
             <div class="neon-contacto-grid">
                 <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-btn-contacto wa-neon" target="_blank">
                     <i class="fa-brands fa-whatsapp"></i>
@@ -702,6 +818,48 @@
             </div>
         </section>
 
+        <!-- PÁGINA 6: PERFECT POINT (SOLICITAR ACCESO / INGRESAR Y ABRIR APP) -->
+        <section id="perfect-point" class="pagina">
+            <div class="pp-box" id="pp-panel-acceso">
+                <h2>Perfect Point</h2>
+                <p class="pp-sub">Plataforma de gestión, resultados y almacén creativo de <strong>Point Grid Media Agency</strong>. Ingresa con tu clave o solicita acceso.</p>
+
+                <div class="pp-tabs">
+                    <button type="button" class="pp-tab-btn activo" id="tab-ingresar" onclick="cambiarTabPP('ingresar')">Ingresar</button>
+                    <button type="button" class="pp-tab-btn" id="tab-solicitar" onclick="cambiarTabPP('solicitar')">Solicitar Acceso</button>
+                </div>
+
+                <!-- Formulario Ingresar -->
+                <form class="pp-form" id="form-pp-ingresar" onsubmit="ingresarPerfectPoint(event)">
+                    <input type="text" id="pp-usuario" placeholder="Usuario o correo" required>
+                    <input type="password" id="pp-clave" placeholder="Clave de acceso" required>
+                    <button type="submit" class="btn-enviar">Ingresar y Abrir App</button>
+                </form>
+
+                <!-- Formulario Solicitar Acceso -->
+                <form class="pp-form" id="form-pp-solicitar" style="display: none;" onsubmit="solicitarAccesoPP(event)">
+                    <input type="text" id="pp-sol-nombre" placeholder="Tu nombre y marca / proyecto" required>
+                    <input type="email" id="pp-sol-correo" placeholder="Tu correo electrónico" required>
+                    <input type="tel" id="pp-sol-tel" placeholder="Teléfono / WhatsApp" required>
+                    <button type="submit" class="btn-enviar">Solicitar Acceso</button>
+                </form>
+
+                <p class="pp-msg" id="pp-mensaje"></p>
+            </div>
+
+            <!-- Contenedor de la App una vez que ingresan -->
+            <div class="pp-app-frame-wrap" id="pp-app-wrap">
+                <div class="pp-app-toolbar">
+                    <span>Perfect Point — App Activa</span>
+                    <div style="display:flex; gap:8px;">
+                        <a id="pp-link-externo" href="#" target="_blank">Abrir en nueva pestaña</a>
+                        <button type="button" onclick="cerrarAppPP()">Cerrar sesión</button>
+                    </div>
+                </div>
+                <iframe id="pp-iframe" src="" allow="clipboard-read; clipboard-write"></iframe>
+            </div>
+        </section>
+
     </div>
 
     <!-- BURBUJA FLOTANTE WHATSAPP CON LETRERO SEÑALADOR -->
@@ -716,7 +874,12 @@
 
     <!-- SCRIPTS -->
     <script>
-        // 1. Control de Audio Automático (TRACK 1 POINT GRID.mp3)
+        // URL de tu app desplegada (cámbiala por la URL real de tu app cuando la tengas alojada)
+        const PERFECT_POINT_APP_URL = "https://perfect-point.streamlit.app/?embed=true";
+        // Clave de acceso inicial de ejemplo (cámbiala por la que tú definas)
+        const CLAVE_ACCESO_PP = "POINT2026";
+
+        // 1. Control de Audio Automático
         const musica = document.getElementById("bg-music");
         const iconoPlay = document.getElementById("icono-play");
         musica.volume = 0.5;
@@ -769,7 +932,7 @@
         document.addEventListener('DOMContentLoaded', intentarReproducir);
         window.addEventListener('load', intentarReproducir);
 
-        // 2. Efecto Máquina de Escribir (Servicios en blanco)
+        // 2. Efecto Máquina de Escribir
         const frases = ["Consigue más ventas.", "Prospectos reales.", "Hacemos que tu marca explote.", "Multiplica tus seguidores."];
         let iFrase = 0; let iLetra = 0; let borrando = false;
         const textoElemento = document.getElementById("texto-escribiendo");
@@ -801,9 +964,11 @@
         maquinaEscribir();
 
         // 3. Navegación entre páginas
-        function navegarA(idPagina) {
+        function navegarA(idPagina, enlaceClickeado) {
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
-            event.target.classList.add('active');
+            if (enlaceClickeado) {
+                enlaceClickeado.classList.add('active');
+            }
 
             document.querySelectorAll('.pagina').forEach(pag => {
                 pag.classList.remove('activa');
@@ -837,7 +1002,7 @@
             }
         }, 1500);
 
-        // 5. Apertura Automática Aleatoria en Servicios
+        // 5. Apertura Automática en Servicios
         let serviciosPausados = false;
         const tarjetasServicios = document.querySelectorAll('.servicio-card');
         let indiceServicioActual = 0;
@@ -895,7 +1060,68 @@
             intervaloCarrusel = setInterval(autoPlay, 5000);
         }
 
-        resetearIntervalo(); 
+        resetearIntervalo();
+
+        // 7. Lógica de Acceso y Apertura de Perfect Point
+        function cambiarTabPP(modo) {
+            const tabIng = document.getElementById("tab-ingresar");
+            const tabSol = document.getElementById("tab-solicitar");
+            const formIng = document.getElementById("form-pp-ingresar");
+            const formSol = document.getElementById("form-pp-solicitar");
+            const msg = document.getElementById("pp-mensaje");
+
+            msg.textContent = "";
+            if (modo === "ingresar") {
+                tabIng.classList.add("activo");
+                tabSol.classList.remove("activo");
+                formIng.style.display = "flex";
+                formSol.style.display = "none";
+            } else {
+                tabSol.classList.add("activo");
+                tabIng.classList.remove("activo");
+                formSol.style.display = "flex";
+                formIng.style.display = "none";
+            }
+        }
+
+        function ingresarPerfectPoint(e) {
+            e.preventDefault();
+            const clave = document.getElementById("pp-clave").value.trim();
+            const msg = document.getElementById("pp-mensaje");
+
+            if (clave === CLAVE_ACCESO_PP) {
+                msg.textContent = "Acceso concedido. Abriendo Perfect Point...";
+                document.getElementById("pp-panel-acceso").style.display = "none";
+                const wrap = document.getElementById("pp-app-wrap");
+                const iframe = document.getElementById("pp-iframe");
+                const linkExt = document.getElementById("pp-link-externo");
+                iframe.src = PERFECT_POINT_APP_URL;
+                linkExt.href = PERFECT_POINT_APP_URL;
+                wrap.style.display = "flex";
+            } else {
+                msg.textContent = "Clave incorrecta. Si aún no tienes cuenta, usa Solicitar Acceso.";
+            }
+        }
+
+        function solicitarAccesoPP(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("pp-sol-nombre").value.trim();
+            const correo = document.getElementById("pp-sol-correo").value.trim();
+            const tel = document.getElementById("pp-sol-tel").value.trim();
+            const textoWA = encodeURIComponent(
+                `Hola, solicito acceso a Perfect Point. Nombre/Marca: ${nombre} | Correo: ${correo} | Tel: ${tel}`
+            );
+            document.getElementById("pp-mensaje").textContent = "Solicitud lista. Se abrirá WhatsApp para confirmar tu acceso.";
+            window.open(`https://wa.me/525667462837?text=${textoWA}`, "_blank");
+        }
+
+        function cerrarAppPP() {
+            document.getElementById("pp-iframe").src = "";
+            document.getElementById("pp-app-wrap").style.display = "none";
+            document.getElementById("pp-panel-acceso").style.display = "block";
+            document.getElementById("pp-clave").value = "";
+            document.getElementById("pp-mensaje").textContent = "";
+        }
     </script>
 </body>
 </html>
