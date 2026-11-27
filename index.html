@@ -1063,6 +1063,12 @@
         resetearIntervalo();
 
         // 7. Lógica de Acceso y Apertura de Perfect Point
+        const PERFECT_POINT_APP_URL = "https://tu-app-en-streamlit.streamlit.app/?embed=true";
+        const ADMIN_USER_PP = "luis";
+        const ADMIN_EMAIL_PP = "contacto@pointgridmx.com";
+        const CLAVE_ACCESO_PP = "TU_CLAVE_ADMIN_AQUI";
+        const CORREO_ADMIN_PP = "contacto@pointgridmx.com";
+
         function cambiarTabPP(modo) {
             const tabIng = document.getElementById("tab-ingresar");
             const tabSol = document.getElementById("tab-solicitar");
@@ -1086,11 +1092,17 @@
 
         function ingresarPerfectPoint(e) {
             e.preventDefault();
-            const clave = document.getElementById("pp-clave").value.trim();
+            const usuarioIngresado = document.getElementById("pp-usuario").value.trim().toLowerCase();
+            const claveIngresada = document.getElementById("pp-clave").value.trim();
             const msg = document.getElementById("pp-mensaje");
 
-            if (clave === CLAVE_ACCESO_PP) {
-                msg.textContent = "Acceso concedido. Abriendo Perfect Point...";
+            const usuarioValido = (
+                usuarioIngresado === ADMIN_USER_PP.toLowerCase() ||
+                usuarioIngresado === ADMIN_EMAIL_PP.toLowerCase()
+            );
+
+            if (usuarioValido && claveIngresada === CLAVE_ACCESO_PP) {
+                msg.textContent = "Acceso de administrador concedido. Abriendo Perfect Point...";
                 document.getElementById("pp-panel-acceso").style.display = "none";
                 const wrap = document.getElementById("pp-app-wrap");
                 const iframe = document.getElementById("pp-iframe");
@@ -1099,7 +1111,7 @@
                 linkExt.href = PERFECT_POINT_APP_URL;
                 wrap.style.display = "flex";
             } else {
-                msg.textContent = "Clave incorrecta. Si aún no tienes cuenta, usa Solicitar Acceso.";
+                msg.textContent = "Usuario/correo o clave incorrectos. Revisa tus datos o usa Solicitar Acceso.";
             }
         }
 
@@ -1108,20 +1120,21 @@
             const nombre = document.getElementById("pp-sol-nombre").value.trim();
             const correo = document.getElementById("pp-sol-correo").value.trim();
             const tel = document.getElementById("pp-sol-tel").value.trim();
-            const textoWA = encodeURIComponent(
-                `Hola, solicito acceso a Perfect Point. Nombre/Marca: ${nombre} | Correo: ${correo} | Tel: ${tel}`
+
+            const asunto = encodeURIComponent("Solicitud de acceso - Perfect Point");
+            const cuerpo = encodeURIComponent(
+                `Hola, solicito acceso a Perfect Point.\nNombre / Marca: ${nombre}\nCorreo: ${correo}\nTeléfono: ${tel}`
             );
-            document.getElementById("pp-mensaje").textContent = "Solicitud lista. Se abrirá WhatsApp para confirmar tu acceso.";
-            window.open(`https://wa.me/525667462837?text=${textoWA}`, "_blank");
+
+            document.getElementById("pp-mensaje").textContent = "Abriendo correo para enviar tu solicitud a " + CORREO_ADMIN_PP + "...";
+            window.location.href = `mailto:${CORREO_ADMIN_PP}?subject=${asunto}&body=${cuerpo}`;
         }
 
         function cerrarAppPP() {
             document.getElementById("pp-iframe").src = "";
             document.getElementById("pp-app-wrap").style.display = "none";
             document.getElementById("pp-panel-acceso").style.display = "block";
+            document.getElementById("pp-usuario").value = "";
             document.getElementById("pp-clave").value = "";
             document.getElementById("pp-mensaje").textContent = "";
         }
-    </script>
-</body>
-</html>
