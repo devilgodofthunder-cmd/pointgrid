@@ -12,37 +12,62 @@
             --bg-color: #050505;
             --text-main: #ffffff;
             --text-muted: #aaaaaa;
-            --cyan-neon: #00ffcc; 
+            --cyan-neon: #00ffcc;
             --dark-card: #111111;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Helvetica Neue', Arial, sans-serif; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+        }
 
         body {
             background-color: var(--bg-color);
             color: var(--text-main);
-            overflow: hidden; 
+            overflow: hidden;
         }
 
         /* --- NAVEGACIÓN --- */
         .navbar {
             position: fixed;
-            top: 0; left: 0; width: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
             background: rgba(5, 5, 5, 0.92);
             backdrop-filter: blur(10px);
-            z-index: 1000; padding: 15px 0;
+            z-index: 1000;
+            padding: 15px 0;
             border-bottom: 1px solid rgba(0, 255, 204, 0.25);
         }
-        .nav-links { list-style: none; display: flex; justify-content: center; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 22px;
+            flex-wrap: wrap;
+        }
+
         .nav-links li a {
             color: var(--text-main);
-            text-decoration: none; font-weight: bold; text-transform: uppercase;
-            letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
             font-size: 0.85rem;
         }
-        .nav-links li a:hover, .nav-links li a.active { color: var(--cyan-neon); text-shadow: 0 0 8px rgba(0,255,204,0.6); }
 
-        /* Botón especial al final del menú para Perfect Point */
+        .nav-links li a:hover,
+        .nav-links li a.active {
+            color: var(--cyan-neon);
+            text-shadow: 0 0 8px rgba(0, 255, 204, 0.6);
+        }
+
         .nav-links li a.btn-perfect-point {
             border: 1px solid var(--cyan-neon);
             color: var(--cyan-neon);
@@ -50,6 +75,7 @@
             border-radius: 20px;
             background: rgba(0, 255, 204, 0.08);
         }
+
         .nav-links li a.btn-perfect-point:hover,
         .nav-links li a.btn-perfect-point.active {
             background: var(--cyan-neon);
@@ -60,40 +86,88 @@
 
         /* --- CONTENEDOR DE PÁGINAS --- */
         #app-container {
-            width: 100vw; height: 100vh; position: relative;
+            width: 100vw;
+            height: 100vh;
+            position: relative;
         }
 
         .pagina {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             padding: 80px 20px 30px 20px;
-            display: none; 
-            flex-direction: column; justify-content: center; align-items: center; gap: 15px;
-            opacity: 0; transform: translateY(20px);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
             transition: opacity 0.4s ease, transform 0.4s ease;
             overflow-y: auto;
         }
 
         .pagina.activa {
-            display: flex; opacity: 1; transform: translateY(0);
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
         }
-        .pagina::-webkit-scrollbar { display: none; }
+
+        .pagina::-webkit-scrollbar {
+            display: none;
+        }
 
         /* --- BARRA SOCIAL GLOBAL --- */
         .social-bar {
-            display: flex; gap: 22px; margin-top: 10px; 
-            background: rgba(255,255,255,0.06); padding: 8px 25px; border-radius: 30px;
-            border: 1px solid rgba(255,255,255,0.08);
+            display: flex;
+            gap: 22px;
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            padding: 8px 25px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .social-btn {
-            background: none; border: none; color: var(--text-main);
-            display: flex; align-items: center; gap: 8px; cursor: pointer;
-            font-size: 1rem; transition: all 0.25s ease;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.25s ease;
         }
-        .social-btn svg { width: 22px; height: 22px; fill: transparent; stroke: currentColor; stroke-width: 2px; transition: all 0.25s ease;}
-        
-        .social-btn.activo-like svg { fill: var(--cyan-neon); stroke: var(--cyan-neon); transform: scale(1.25); filter: drop-shadow(0 0 6px var(--cyan-neon)); }
-        .social-btn.activo-comment svg { fill: var(--text-main); transform: scale(1.15); }
-        .social-btn.activo-share svg { stroke: var(--cyan-neon); transform: scale(1.15); filter: drop-shadow(0 0 6px var(--cyan-neon)); }
+
+        .social-btn svg {
+            width: 22px;
+            height: 22px;
+            fill: transparent;
+            stroke: currentColor;
+            stroke-width: 2px;
+            transition: all 0.25s ease;
+        }
+
+        .social-btn.activo-like svg {
+            fill: var(--cyan-neon);
+            stroke: var(--cyan-neon);
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 6px var(--cyan-neon));
+        }
+
+        .social-btn.activo-comment svg {
+            fill: var(--text-main);
+            transform: scale(1.15);
+        }
+
+        .social-btn.activo-share svg {
+            stroke: var(--cyan-neon);
+            transform: scale(1.15);
+            filter: drop-shadow(0 0 6px var(--cyan-neon));
+        }
 
         /* --- BURBUJA FLOTANTE WHATSAPP + LETRERO SEÑALADOR --- */
         .whatsapp-container {
@@ -131,6 +205,7 @@
             background: var(--cyan-neon);
             color: #000000;
         }
+
         .whatsapp-callout:hover span {
             color: #000000;
         }
@@ -154,10 +229,12 @@
             text-decoration: none;
             flex-shrink: 0;
         }
+
         .whatsapp-float:hover {
             transform: scale(1.12);
             box-shadow: 0 0 28px rgba(37, 211, 102, 0.9);
         }
+
         .whatsapp-float svg {
             width: 32px;
             height: 32px;
@@ -165,19 +242,28 @@
         }
 
         /* --- INICIO --- */
-        #inicio { text-align: center; background: radial-gradient(circle at center, #161616 0%, var(--bg-color) 100%); }
-        
-        @keyframes levitar-neon {
-            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(0,255,204,0.2); }
-            50% { transform: translateY(-6px); text-shadow: 0 0 20px rgba(0,255,204,0.6), 0 0 35px rgba(0,255,204,0.3); }
+        #inicio {
+            text-align: center;
+            background: radial-gradient(circle at center, #161616 0%, var(--bg-color) 100%);
         }
 
-        #inicio h1 { 
-            font-size: 3rem; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 2px; 
-            animation: levitar-neon 4s ease-in-out infinite; 
+        @keyframes levitar-neon {
+            0%, 100% { transform: translateY(0); text-shadow: 0 0 10px rgba(0, 255, 204, 0.2); }
+            50% { transform: translateY(-6px); text-shadow: 0 0 20px rgba(0, 255, 204, 0.6), 0 0 35px rgba(0, 255, 204, 0.3); }
         }
-        #inicio h1 span { color: var(--cyan-neon); }
-        
+
+        #inicio h1 {
+            font-size: 3rem;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: levitar-neon 4s ease-in-out infinite;
+        }
+
+        #inicio h1 span {
+            color: var(--cyan-neon);
+        }
+
         .eslogan-inicio {
             font-size: 1.25rem;
             color: #ffffff;
@@ -186,6 +272,7 @@
             text-transform: uppercase;
             margin-bottom: 12px;
         }
+
         .eslogan-inicio span {
             color: var(--cyan-neon);
         }
@@ -200,6 +287,7 @@
             box-shadow: 0 10px 30px rgba(0, 255, 204, 0.15);
             background: #000;
         }
+
         .video-wrapper video {
             width: 100%;
             height: 100%;
@@ -217,6 +305,7 @@
             border: 1px solid rgba(0, 255, 204, 0.3);
             margin-top: 5px;
         }
+
         .audio-btn {
             background: rgba(0, 255, 204, 0.1);
             border: 1px solid var(--cyan-neon);
@@ -231,15 +320,26 @@
             font-size: 0.95rem;
             transition: 0.2s;
         }
+
         .audio-btn:hover {
             background: var(--cyan-neon);
             color: #000;
         }
 
+        .vol-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            min-width: 38px;
+            text-align: center;
+        }
+
         /* --- SERVICIOS --- */
         .texto-dinamico-container {
-            height: 32px; margin-bottom: 10px; text-align: center;
+            height: 32px;
+            margin-bottom: 10px;
+            text-align: center;
         }
+
         .texto-dinamico {
             font-size: 1.3rem;
             color: #ffffff;
@@ -249,48 +349,64 @@
             padding-right: 5px;
             animation: parpadeo 0.7s infinite;
         }
-        @keyframes parpadeo { 50% { border-color: transparent; } }
+
+        @keyframes parpadeo {
+            50% { border-color: transparent; }
+        }
 
         .grid-servicios {
-            display: grid; 
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 16px; max-width: 920px; width: 92%;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            max-width: 920px;
+            width: 92%;
         }
+
         @media (max-width: 768px) {
-            .grid-servicios { grid-template-columns: 1fr; } 
+            .grid-servicios { grid-template-columns: 1fr; }
             #inicio h1 { font-size: 2.1rem; }
         }
 
         .servicio-card {
-            background-color: var(--dark-card); 
-            padding: 20px; 
-            border-radius: 15px; 
-            border: 1px solid #333; 
-            text-align: center; 
-            transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            background-color: var(--dark-card);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            text-align: center;
+            transition: all 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
-            overflow: hidden; 
-            max-height: 115px; 
+            overflow: hidden;
+            max-height: 115px;
             position: relative;
         }
 
         .servicio-card.abierto,
         .servicio-card:hover {
-            max-height: 300px; 
+            max-height: 300px;
             border-color: var(--cyan-neon);
-            box-shadow: 0 10px 25px rgba(0,255,204,0.18);
+            box-shadow: 0 10px 25px rgba(0, 255, 204, 0.18);
             background-color: #161616;
         }
 
-        .servicio-card h3 { color: var(--cyan-neon); margin-bottom: 6px; font-size: 1.15rem; text-transform: uppercase; }
-        .servicio-card p.descripcion-corta { color: var(--text-muted); font-size: 0.88rem; }
-        
+        .servicio-card h3 {
+            color: var(--cyan-neon);
+            margin-bottom: 6px;
+            font-size: 1.15rem;
+            text-transform: uppercase;
+        }
+
+        .servicio-card p.descripcion-corta {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
         .contenido-desplegable {
             opacity: 0;
             transform: translateY(10px);
             transition: all 0.35s ease;
             margin-top: 12px;
         }
+
         .servicio-card.abierto .contenido-desplegable,
         .servicio-card:hover .contenido-desplegable {
             opacity: 1;
@@ -298,7 +414,10 @@
         }
 
         .descripcion-larga {
-            color: #ffffff; font-size: 0.85rem; line-height: 1.45; margin-bottom: 12px;
+            color: #ffffff;
+            font-size: 0.85rem;
+            line-height: 1.45;
+            margin-bottom: 12px;
         }
 
         .iconos-servicio {
@@ -308,9 +427,11 @@
             font-size: 1.35rem;
             color: var(--cyan-neon);
         }
+
         .iconos-servicio i {
             animation: flotar-icono 2.2s ease-in-out infinite;
         }
+
         .iconos-servicio i:nth-child(2) { animation-delay: 0.3s; }
         .iconos-servicio i:nth-child(3) { animation-delay: 0.6s; }
         .iconos-servicio i:nth-child(4) { animation-delay: 0.9s; }
@@ -326,27 +447,36 @@
 
         /* --- CLIENTES --- */
         .carrusel-wrapper {
-            position: relative; 
-            width: 100%; 
-            max-width: 380px; 
+            position: relative;
+            width: 100%;
+            max-width: 380px;
             margin: 0 auto;
         }
+
         .carrusel-container {
-            width: 100%; 
-            aspect-ratio: 1 / 1; 
-            overflow: hidden; 
-            position: relative; 
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            position: relative;
             border-radius: 20px;
             border: 2px solid rgba(0, 255, 204, 0.35);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
             background: #111;
         }
+
         .carrusel-track {
-            display: flex; width: 400%; height: 100%; transition: transform 0.5s ease-in-out;
+            display: flex;
+            width: 400%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
         }
+
         .slide {
-            width: 25%; height: 100%; position: relative;
+            width: 25%;
+            height: 100%;
+            position: relative;
         }
+
         .slide-link {
             display: block;
             width: 100%;
@@ -355,52 +485,143 @@
             color: inherit;
             cursor: pointer;
         }
-        .slide img { 
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.8; transition: transform 0.4s ease, opacity 0.4s ease; 
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.8;
+            transition: transform 0.4s ease, opacity 0.4s ease;
         }
+
         .slide-link:hover img {
             transform: scale(1.04);
             opacity: 0.95;
         }
-        
-        .info-cliente { 
-            position: absolute; bottom: 0; left: 0; right: 0; 
+
+        .info-cliente {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 35px 20px 20px 20px;
-            background: linear-gradient(to top, rgba(0,0,0,0.95) 20%, transparent 100%);
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 20%, transparent 100%);
             text-align: left;
         }
-        .info-cliente h3 { font-size: 1.55rem; color: #fff; text-shadow: 1px 1px 4px #000; margin-bottom: 4px; text-transform: uppercase; }
-        .info-cliente p { color: var(--cyan-neon); font-weight: bold; font-size: 0.95rem; }
+
+        .info-cliente h3 {
+            font-size: 1.55rem;
+            color: #fff;
+            text-shadow: 1px 1px 4px #000;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .info-cliente p {
+            color: var(--cyan-neon);
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
 
         .flecha {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.75); color: white; border: 1px solid var(--cyan-neon);
-            width: 42px; height: 42px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            cursor: pointer; z-index: 10; font-size: 1.2rem; transition: 0.3s;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            border: 1px solid var(--cyan-neon);
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 10;
+            font-size: 1.2rem;
+            transition: 0.3s;
         }
-        .flecha:hover { background: var(--cyan-neon); color: black; box-shadow: 0 0 15px var(--cyan-neon); }
+
+        .flecha:hover {
+            background: var(--cyan-neon);
+            color: black;
+            box-shadow: 0 0 15px var(--cyan-neon);
+        }
+
         .flecha-izq { left: -55px; }
         .flecha-der { right: -55px; }
+
         @media (max-width: 540px) {
             .carrusel-wrapper { max-width: 310px; }
-            .flecha-izq { left: 8px; } .flecha-der { right: 8px; } 
+            .flecha-izq { left: 8px; }
+            .flecha-der { right: 8px; }
         }
 
-        .carrusel-dots { display: flex; justify-content: center; gap: 10px; margin-top: 14px; }
-        .dot { width: 10px; height: 10px; background: #555; border-radius: 50%; transition: 0.3s; cursor: pointer; }
-        .dot.activo { background: var(--cyan-neon); width: 22px; border-radius: 5px; }
+        .carrusel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 14px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #555;
+            border-radius: 50%;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .dot.activo {
+            background: var(--cyan-neon);
+            width: 22px;
+            border-radius: 5px;
+        }
 
         /* --- POINT SHOCK --- */
-        #point-shock { text-align: center; padding: 20px; }
-        .etiqueta-descubre { font-size: 1rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 3px; margin-bottom: -5px; }
-        #point-shock h2 { font-size: 3.5rem; color: var(--cyan-neon); text-transform: uppercase; margin-bottom: 15px; text-shadow: 0 0 12px rgba(0,255,204,0.5); }
-        .cartel-pronto { 
-            background: #ff0055; color: white; padding: 8px 28px; font-size: 1.7rem; font-weight: bold; 
-            border-radius: 10px; display: inline-block; transform: rotate(-3deg); margin-bottom: 20px; 
-            box-shadow: 0 10px 20px rgba(255,0,85,0.4);
+        #point-shock {
+            text-align: center;
+            padding: 20px;
         }
-        #point-shock p { font-size: 1.15rem; color: var(--text-main); max-width: 700px; margin: 0 auto 10px auto; line-height: 1.5; }
-        
+
+        .etiqueta-descubre {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: -5px;
+        }
+
+        #point-shock h2 {
+            font-size: 3.5rem;
+            color: var(--cyan-neon);
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            text-shadow: 0 0 12px rgba(0, 255, 204, 0.5);
+        }
+
+        .cartel-pronto {
+            background: #ff0055;
+            color: white;
+            padding: 8px 28px;
+            font-size: 1.7rem;
+            font-weight: bold;
+            border-radius: 10px;
+            display: inline-block;
+            transform: rotate(-3deg);
+            margin-bottom: 20px;
+            box-shadow: 0 10px 20px rgba(255, 0, 85, 0.4);
+        }
+
+        #point-shock p {
+            font-size: 1.15rem;
+            color: var(--text-main);
+            max-width: 700px;
+            margin: 0 auto 10px auto;
+            line-height: 1.5;
+        }
+
         /* --- CONTACTO --- */
         .cta-contacto {
             color: var(--cyan-neon);
@@ -411,14 +632,55 @@
             text-align: center;
             margin-bottom: 5px;
         }
-        .form-contacto { width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 12px; }
-        .form-contacto input, .form-contacto select, .form-contacto textarea {
-            padding: 13px; background: var(--dark-card); border: 1px solid #333; color: #fff; border-radius: 8px; font-size: 0.95rem;
+
+        .form-contacto {
+            width: 100%;
+            max-width: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
-        .form-contacto input:focus, .form-contacto select:focus, .form-contacto textarea:focus { outline: none; border-color: var(--cyan-neon); }
-        .form-contacto textarea { height: 90px; resize: none; }
-        .btn-enviar { padding: 14px; background: var(--cyan-neon); color: #000; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-enviar:hover { background: #fff; box-shadow: 0 0 15px #fff; }
+
+        .form-contacto input,
+        .form-contacto select,
+        .form-contacto textarea {
+            padding: 13px;
+            background: var(--dark-card);
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 8px;
+            font-size: 0.95rem;
+        }
+
+        .form-contacto input:focus,
+        .form-contacto select:focus,
+        .form-contacto textarea:focus {
+            outline: none;
+            border-color: var(--cyan-neon);
+        }
+
+        .form-contacto textarea {
+            height: 90px;
+            resize: none;
+        }
+
+        .btn-enviar {
+            padding: 14px;
+            background: var(--cyan-neon);
+            color: #000;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-enviar:hover {
+            background: #fff;
+            box-shadow: 0 0 15px #fff;
+        }
 
         .neon-contacto-grid {
             display: flex;
@@ -427,6 +689,7 @@
             gap: 15px;
             margin-top: 8px;
         }
+
         .neon-btn-contacto {
             display: flex;
             align-items: center;
@@ -440,25 +703,29 @@
             font-weight: bold;
             font-size: 0.9rem;
             letter-spacing: 0.5px;
-            box-shadow: 0 0 12px rgba(0,255,204,0.35), inset 0 0 8px rgba(0,255,204,0.15);
+            box-shadow: 0 0 12px rgba(0, 255, 204, 0.35), inset 0 0 8px rgba(0, 255, 204, 0.15);
             animation: parpadeo-neon 2s infinite alternate;
             transition: transform 0.3s ease, background 0.3s ease;
         }
+
         .neon-btn-contacto:hover {
             transform: scale(1.05);
             background: rgba(0, 255, 204, 0.18);
-            box-shadow: 0 0 22px rgba(0,255,204,0.8);
+            box-shadow: 0 0 22px rgba(0, 255, 204, 0.8);
         }
+
         .neon-btn-contacto i {
             font-size: 1.2rem;
             color: var(--cyan-neon);
         }
+
         .neon-btn-contacto.wa-neon i {
             color: #25d366;
         }
+
         @keyframes parpadeo-neon {
-            0% { border-color: rgba(0,255,204,0.45); box-shadow: 0 0 10px rgba(0,255,204,0.25); }
-            100% { border-color: rgba(0,255,204,1); box-shadow: 0 0 22px rgba(0,255,204,0.75); }
+            0% { border-color: rgba(0, 255, 204, 0.45); box-shadow: 0 0 10px rgba(0, 255, 204, 0.25); }
+            100% { border-color: rgba(0, 255, 204, 1); box-shadow: 0 0 22px rgba(0, 255, 204, 0.75); }
         }
 
         /* --- PERFECT POINT (ACCESO Y APP) --- */
@@ -467,6 +734,7 @@
             padding-top: 90px;
             text-align: center;
         }
+
         .pp-box {
             width: 100%;
             max-width: 540px;
@@ -476,23 +744,27 @@
             padding: 24px;
             box-shadow: 0 10px 30px rgba(0, 255, 204, 0.12);
         }
+
         .pp-box h2 {
             color: var(--cyan-neon);
             text-transform: uppercase;
             letter-spacing: 1.5px;
             margin-bottom: 8px;
         }
+
         .pp-sub {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-bottom: 18px;
             line-height: 1.45;
         }
+
         .pp-tabs {
             display: flex;
             gap: 10px;
             margin-bottom: 16px;
         }
+
         .pp-tab-btn {
             flex: 1;
             padding: 10px;
@@ -504,17 +776,20 @@
             cursor: pointer;
             transition: 0.25s;
         }
+
         .pp-tab-btn.activo {
             border-color: var(--cyan-neon);
             color: var(--cyan-neon);
             background: rgba(0, 255, 204, 0.12);
         }
+
         .pp-form {
             display: flex;
             flex-direction: column;
             gap: 12px;
             text-align: left;
         }
+
         .pp-form input {
             padding: 12px;
             background: #080808;
@@ -523,16 +798,19 @@
             color: #fff;
             font-size: 0.95rem;
         }
+
         .pp-form input:focus {
             outline: none;
             border-color: var(--cyan-neon);
         }
+
         .pp-msg {
             margin-top: 10px;
             font-size: 0.88rem;
             color: var(--cyan-neon);
             text-align: center;
         }
+
         .pp-app-frame-wrap {
             display: none;
             width: 100%;
@@ -544,6 +822,7 @@
             background: #0a0a0a;
             flex-direction: column;
         }
+
         .pp-app-toolbar {
             display: flex;
             justify-content: space-between;
@@ -554,12 +833,15 @@
             gap: 10px;
             flex-wrap: wrap;
         }
+
         .pp-app-toolbar span {
             color: var(--cyan-neon);
             font-weight: bold;
             font-size: 0.9rem;
         }
-        .pp-app-toolbar a, .pp-app-toolbar button {
+
+        .pp-app-toolbar a,
+        .pp-app-toolbar button {
             padding: 6px 12px;
             border-radius: 8px;
             border: 1px solid var(--cyan-neon);
@@ -570,6 +852,7 @@
             text-decoration: none;
             cursor: pointer;
         }
+
         .pp-app-frame-wrap iframe {
             width: 100%;
             flex: 1;
@@ -593,44 +876,45 @@
     </nav>
 
     <!-- AUDIO DE FONDO EN LOOP AUTOMÁTICO -->
-    <audio id="bg-music" src="TRACK 1 POINT GRID.mp3" autoplay loop preload="auto"></audio>
+    <audio id="bg-music" src="TRACK 1 POINT GRID.mp3" loop preload="auto"></audio>
 
     <div id="app-container">
-        
+
         <!-- PÁGINA 1: INICIO -->
         <section id="inicio" class="pagina activa">
             <div>
                 <h1>Point <span>Grid</span> Media Agency</h1>
                 <p class="eslogan-inicio"><span>Marketing</span> al alcance de todos</p>
             </div>
-            
+
             <div class="video-wrapper">
-                <video src="media point.mp4" autoplay muted loop playsinline></video>
+                <video id="video-inicio" src="media point.mp4" autoplay muted loop playsinline controls></video>
             </div>
 
             <div class="audio-controls">
-                <button class="audio-btn" onclick="toggleAudio()" id="btn-play-pause" title="Pausar / Reproducir">
-                    <i class="fa-solid fa-pause" id="icono-play"></i>
+                <button type="button" class="audio-btn" onclick="toggleAudio()" id="btn-play-pause" title="Pausar / Reproducir música">
+                    <i class="fa-solid fa-play" id="icono-play"></i>
                 </button>
-                <button class="audio-btn" onclick="cambiarVolumen(-0.15)" title="Bajar volumen">
+                <button type="button" class="audio-btn" onclick="cambiarVolumen(-0.15)" title="Bajar volumen">
                     <i class="fa-solid fa-volume-low"></i>
                 </button>
-                <button class="audio-btn" onclick="cambiarVolumen(0.15)" title="Subir volumen">
+                <span class="vol-label" id="vol-porcentaje">50%</span>
+                <button type="button" class="audio-btn" onclick="cambiarVolumen(0.15)" title="Subir volumen">
                     <i class="fa-solid fa-volume-high"></i>
                 </button>
             </div>
 
             <div class="social-bar">
-                <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-                <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-                <button class="social-btn btn-share"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
+                <button type="button" class="social-btn btn-like" aria-label="Me gusta"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button type="button" class="social-btn btn-comment" aria-label="Comentar"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
+                <button type="button" class="social-btn btn-share" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
             </div>
         </section>
 
         <!-- PÁGINA 2: SERVICIOS -->
         <section id="servicios" class="pagina">
             <h2>Servicios</h2>
-            
+
             <div class="texto-dinamico-container">
                 <span class="texto-dinamico" id="texto-escribiendo"></span>
             </div>
@@ -692,21 +976,21 @@
             </div>
 
             <div class="social-bar">
-                <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-                <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-                <button class="social-btn btn-share"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
+                <button type="button" class="social-btn btn-like" aria-label="Me gusta"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button type="button" class="social-btn btn-comment" aria-label="Comentar"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
+                <button type="button" class="social-btn btn-share" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
             </div>
         </section>
 
         <!-- PÁGINA 3: CLIENTES -->
         <section id="clientes" class="pagina">
             <div class="carrusel-wrapper">
-                <button class="flecha flecha-izq" onclick="moverCarrusel(-1)">&#10094;</button>
-                
+                <button type="button" class="flecha flecha-izq" onclick="moverCarrusel(-1)" aria-label="Anterior">&#10094;</button>
+
                 <div class="carrusel-container">
                     <div class="carrusel-track" id="track">
                         <div class="slide">
-                            <a href="https://michellecalderon.studio" target="_blank" class="slide-link" title="Visitar sitio oficial de Michelle Calderön">
+                            <a href="https://michellecalderon.studio" target="_blank" rel="noopener noreferrer" class="slide-link" title="Visitar sitio oficial de Michelle Calderön">
                                 <img src="MICH CALDERON.jpg" alt="Michelle Calderön">
                                 <div class="info-cliente">
                                     <h3>Michelle Calderön</h3>
@@ -715,7 +999,7 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="https://www.facebook.com/slaughternoiseprods" target="_blank" class="slide-link" title="Visitar Facebook de Slaughter Noise">
+                            <a href="https://www.facebook.com/slaughternoiseprods" target="_blank" rel="noopener noreferrer" class="slide-link" title="Visitar Facebook de Slaughter Noise">
                                 <img src="SLAUGHTER NOISE.jpg" alt="Slaughter Noise">
                                 <div class="info-cliente">
                                     <h3>Slaughter Noise</h3>
@@ -724,7 +1008,7 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="https://www.facebook.com/profile.php?id=61555738297710" target="_blank" class="slide-link" title="Visitar Facebook de Tzompantli">
+                            <a href="https://www.facebook.com/profile.php?id=61555738297710" target="_blank" rel="noopener noreferrer" class="slide-link" title="Visitar Facebook de Tzompantli">
                                 <img src="TZOMPANTLI.jpg" alt="Tzompantli">
                                 <div class="info-cliente">
                                     <h3>Tzompantli</h3>
@@ -733,7 +1017,7 @@
                             </a>
                         </div>
                         <div class="slide">
-                            <a href="https://www.instagram.com/dr.bestiaa/" target="_blank" class="slide-link" title="Visitar Instagram de Dr. Bestia">
+                            <a href="https://www.instagram.com/dr.bestiaa/" target="_blank" rel="noopener noreferrer" class="slide-link" title="Visitar Instagram de Dr. Bestia">
                                 <img src="DR BESTIA.jpg" alt="Dr. Bestia">
                                 <div class="info-cliente">
                                     <h3>Dr. Bestia</h3>
@@ -744,8 +1028,8 @@
                     </div>
                 </div>
 
-                <button class="flecha flecha-der" onclick="moverCarrusel(1)">&#10095;</button>
-                
+                <button type="button" class="flecha flecha-der" onclick="moverCarrusel(1)" aria-label="Siguiente">&#10095;</button>
+
                 <div class="carrusel-dots">
                     <div class="dot activo" onclick="irASlide(0)"></div>
                     <div class="dot" onclick="irASlide(1)"></div>
@@ -755,9 +1039,9 @@
             </div>
 
             <div class="social-bar">
-                <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-                <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-                <button class="social-btn btn-share"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
+                <button type="button" class="social-btn btn-like" aria-label="Me gusta"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button type="button" class="social-btn btn-comment" aria-label="Comentar"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
+                <button type="button" class="social-btn btn-share" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
             </div>
         </section>
 
@@ -766,17 +1050,17 @@
             <div>
                 <p class="etiqueta-descubre">Descubre</p>
                 <h2>Point Shock</h2>
-                
+
                 <div class="cartel-pronto">¡MUY PRONTO!</div>
-                
+
                 <p style="color: var(--cyan-neon); font-weight: bold; font-size: 1.25rem;">Visibilidad de alto impacto para tu proyecto.</p>
                 <p><strong>Exclusivo de YouTube.</strong></p>
             </div>
 
             <div class="social-bar">
-                <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-                <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-                <button class="social-btn btn-share"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
+                <button type="button" class="social-btn btn-like" aria-label="Me gusta"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button type="button" class="social-btn btn-comment" aria-label="Comentar"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
+                <button type="button" class="social-btn btn-share" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
             </div>
         </section>
 
@@ -784,7 +1068,7 @@
         <section id="contacto" class="pagina">
             <h2>Impulsa tu proyecto</h2>
             <p class="cta-contacto">Tu estrategia personalizada a un click de distancia</p>
-            
+
             <form class="form-contacto" action="mailto:contacto@pointgridmx.com" method="POST" enctype="text/plain">
                 <input type="text" name="Nombre" placeholder="Tu Nombre o Marca" required>
                 <input type="tel" name="Telefono" placeholder="Número Telefónico" required>
@@ -800,7 +1084,7 @@
             </form>
 
             <div class="neon-contacto-grid">
-                <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-btn-contacto wa-neon" target="_blank">
+                <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="neon-btn-contacto wa-neon" target="_blank" rel="noopener noreferrer">
                     <i class="fa-brands fa-whatsapp"></i>
                     <span>Contáctanos: 56 6746 2837</span>
                 </a>
@@ -812,9 +1096,9 @@
             </div>
 
             <div class="social-bar">
-                <button class="social-btn btn-like"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
-                <button class="social-btn btn-comment"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
-                <button class="social-btn btn-share"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
+                <button type="button" class="social-btn btn-like" aria-label="Me gusta"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></button>
+                <button type="button" class="social-btn btn-comment" aria-label="Comentar"><svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg></button>
+                <button type="button" class="social-btn btn-share" aria-label="Compartir"><svg viewBox="0 0 24 24"><path d="M21 11l-7-7v4C7 9 4 14 3 19c2.5-3.5 6-5.1 11-5.1V18l7-7z"/></svg></button>
             </div>
         </section>
 
@@ -831,7 +1115,7 @@
 
                 <!-- Formulario Ingresar -->
                 <form class="pp-form" id="form-pp-ingresar" onsubmit="ingresarPerfectPoint(event)">
-                    <input type="text" id="pp-usuario" placeholder="Usuario o correo" required>
+                    <input type="text" id="pp-usuario" placeholder="Usuario o correo (ej. luis o contacto@pointgridmx.com)" required>
                     <input type="password" id="pp-clave" placeholder="Clave de acceso" required>
                     <button type="submit" class="btn-enviar">Ingresar y Abrir App</button>
                 </form>
@@ -852,7 +1136,7 @@
                 <div class="pp-app-toolbar">
                     <span>Perfect Point — App Activa</span>
                     <div style="display:flex; gap:8px;">
-                        <a id="pp-link-externo" href="#" target="_blank">Abrir en nueva pestaña</a>
+                        <a id="pp-link-externo" href="https://perfect-point-grid.streamlit.app" target="_blank" rel="noopener noreferrer">Abrir en nueva pestaña</a>
                         <button type="button" onclick="cerrarAppPP()">Cerrar sesión</button>
                     </div>
                 </div>
@@ -864,24 +1148,31 @@
 
     <!-- BURBUJA FLOTANTE WHATSAPP CON LETRERO SEÑALADOR -->
     <div class="whatsapp-container">
-        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-callout" target="_blank">
+        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-callout" target="_blank" rel="noopener noreferrer">
             ¡Mándanos un mensaje! <span>➔</span>
         </a>
-        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+        <a href="https://wa.me/525667462837?text=Hola,%20vengo%20de%20pointgridmx.com%20me%20interesa%20impulsar%20mi%20marca" class="whatsapp-float" target="_blank" rel="noopener noreferrer" title="Contáctanos por WhatsApp">
             <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824z"/></svg>
         </a>
     </div>
 
-    <!-- SCRIPTS -->
     <script>
         // 1. Configuración y Control de Audio Automático
         const musica = document.getElementById("bg-music");
         const iconoPlay = document.getElementById("icono-play");
+        const volPorcentaje = document.getElementById("vol-porcentaje");
         let musicaPausadaManual = false;
         let paginaActual = "inicio";
         musica.volume = 0.5;
 
+        function actualizarIndicadorVolumen() {
+            if (volPorcentaje) {
+                volPorcentaje.textContent = `${Math.round(musica.volume * 100)}%`;
+            }
+        }
+
         function actualizarIconoAudio() {
+            if (!iconoPlay) return;
             if (musica.paused) {
                 iconoPlay.classList.remove("fa-pause");
                 iconoPlay.classList.add("fa-play");
@@ -889,6 +1180,7 @@
                 iconoPlay.classList.remove("fa-play");
                 iconoPlay.classList.add("fa-pause");
             }
+            actualizarIndicadorVolumen();
         }
 
         function toggleAudio() {
@@ -906,10 +1198,12 @@
             let nuevoVol = musica.volume + cambio;
             if (nuevoVol > 1) nuevoVol = 1;
             if (nuevoVol < 0) nuevoVol = 0;
-            musica.volume = nuevoVol;
+            musica.volume = Number(nuevoVol.toFixed(2));
+            actualizarIndicadorVolumen();
         }
 
         function intentarReproducir() {
+            actualizarIndicadorVolumen();
             if (paginaActual === "perfect-point" || musicaPausadaManual) return;
 
             musica.play().then(() => {
@@ -936,12 +1230,15 @@
 
         // 2. Efecto Máquina de Escribir
         const frases = ["Consigue más ventas.", "Prospectos reales.", "Hacemos que tu marca explote.", "Multiplica tus seguidores."];
-        let iFrase = 0; let iLetra = 0; let borrando = false;
+        let iFrase = 0;
+        let iLetra = 0;
+        let borrando = false;
         const textoElemento = document.getElementById("texto-escribiendo");
 
         function maquinaEscribir() {
+            if (!textoElemento) return;
             const fraseActual = frases[iFrase];
-            
+
             if (borrando) {
                 textoElemento.innerText = fraseActual.substring(0, iLetra - 1);
                 iLetra--;
@@ -953,12 +1250,12 @@
             let velocidad = borrando ? 45 : 90;
 
             if (!borrando && iLetra === fraseActual.length) {
-                velocidad = 1800; 
+                velocidad = 1800;
                 borrando = true;
             } else if (borrando && iLetra === 0) {
                 borrando = false;
                 iFrase = (iFrase + 1) % frases.length;
-                velocidad = 400; 
+                velocidad = 400;
             }
 
             setTimeout(maquinaEscribir, velocidad);
@@ -974,7 +1271,6 @@
                 enlaceClickeado.classList.add('active');
             }
 
-            // Si entra a Perfect Point se apaga la música; si sale a cualquier otro apartado, vuelve a sonar
             if (idPagina === "perfect-point") {
                 musica.pause();
                 actualizarIconoAudio();
@@ -984,13 +1280,21 @@
 
             document.querySelectorAll('.pagina').forEach(pag => {
                 pag.classList.remove('activa');
-                setTimeout(() => { pag.style.display = 'none'; }, 400); 
+                setTimeout(() => {
+                    if (!pag.classList.contains('activa')) {
+                        pag.style.display = 'none';
+                    }
+                }, 400);
             });
 
             setTimeout(() => {
                 const nuevaPagina = document.getElementById(idPagina);
-                nuevaPagina.style.display = 'flex';
-                setTimeout(() => { nuevaPagina.classList.add('activa'); }, 40);
+                if (nuevaPagina) {
+                    nuevaPagina.style.display = 'flex';
+                    setTimeout(() => {
+                        nuevaPagina.classList.add('activa');
+                    }, 40);
+                }
             }, 400);
         }
 
@@ -999,16 +1303,18 @@
             const todosLosLikes = document.querySelectorAll('.btn-like');
             const todosLosComments = document.querySelectorAll('.btn-comment');
             const todosLosShares = document.querySelectorAll('.btn-share');
-            
-            const likeAzar = todosLosLikes[Math.floor(Math.random() * todosLosLikes.length)];
-            likeAzar.classList.toggle('activo-like');
-            
-            if(Math.random() > 0.4) {
+
+            if (todosLosLikes.length) {
+                const likeAzar = todosLosLikes[Math.floor(Math.random() * todosLosLikes.length)];
+                likeAzar.classList.toggle('activo-like');
+            }
+
+            if (todosLosComments.length && Math.random() > 0.4) {
                 const commentAzar = todosLosComments[Math.floor(Math.random() * todosLosComments.length)];
                 commentAzar.classList.toggle('activo-comment');
             }
 
-            if(Math.random() > 0.5) {
+            if (todosLosShares.length && Math.random() > 0.5) {
                 const shareAzar = todosLosShares[Math.floor(Math.random() * todosLosShares.length)];
                 shareAzar.classList.toggle('activo-share');
             }
@@ -1027,25 +1333,28 @@
         }
 
         setInterval(() => {
-            if (serviciosPausados) return;
+            if (serviciosPausados || !tarjetasServicios.length) return;
 
             tarjetasServicios.forEach(card => card.classList.remove('abierto'));
             tarjetasServicios[indiceServicioActual].classList.add('abierto');
-            
+
             indiceServicioActual = (indiceServicioActual + 1) % tarjetasServicios.length;
         }, 3000);
 
         // 6. Carrusel Centrado 1:1 con Flechas
         let slideActual = 0;
-        const totalSlides = 4; 
+        const totalSlides = 4;
         const track = document.getElementById('track');
         const dots = document.querySelectorAll('.dot');
         let intervaloCarrusel;
 
         function actualizarCarrusel() {
+            if (!track) return;
             track.style.transform = `translateX(-${slideActual * 25}%)`;
             dots.forEach(dot => dot.classList.remove('activo'));
-            dots[slideActual].classList.add('activo');
+            if (dots[slideActual]) {
+                dots[slideActual].classList.add('activo');
+            }
         }
 
         function moverCarrusel(direccion) {
@@ -1053,7 +1362,7 @@
             if (slideActual >= totalSlides) slideActual = 0;
             if (slideActual < 0) slideActual = totalSlides - 1;
             actualizarCarrusel();
-            resetearIntervalo(); 
+            resetearIntervalo();
         }
 
         function irASlide(indice) {
@@ -1088,7 +1397,7 @@
             const formSol = document.getElementById("form-pp-solicitar");
             const msg = document.getElementById("pp-mensaje");
 
-            msg.textContent = "";
+            if (msg) msg.textContent = "";
             if (modo === "ingresar") {
                 tabIng.classList.add("activo");
                 tabSol.classList.remove("activo");
@@ -1114,27 +1423,65 @@
             );
 
             if (usuarioValido && claveIngresada === CLAVE_ACCESO_PP) {
-                msg.textContent = "Acceso concedido. Abriendo Perfect Point en una pestaña nueva...";
-                document.getElementById("pp-panel-acceso").style.display = "none";
-
+                if (msg) msg.textContent = "Acceso concedido. Cargando Perfect Point...";
+                const panelAcceso = document.getElementById("pp-panel-acceso");
                 const wrap = document.getElementById("pp-app-wrap");
                 const iframe = document.getElementById("pp-iframe");
                 const linkExt = document.getElementById("pp-link-externo");
 
+                if (panelAcceso) panelAcceso.style.display = "none";
+                if (linkExt) linkExt.href = PERFECT_POINT_APP_URL;
                 if (iframe) {
-                    iframe.style.display = "none";
-                    iframe.src = "";
-                }
-                if (linkExt) {
-                    linkExt.href = PERFECT_POINT_APP_URL;
+                    iframe.style.display = "block";
+                    iframe.src = PERFECT_POINT_APP_URL;
                 }
                 if (wrap) {
-                    wrap.style.height = "auto";
+                    wrap.style.height = "75vh";
                     wrap.style.display = "flex";
                 }
-
-                window.open(PERFECT_POINT_APP_URL, "_blank", "noopener,noreferrer");
             } else {
-                msg.textContent = "Usuario/correo o clave incorrectos. Revisa tus datos o usa Solicitar Acceso.";
+                if (msg) msg.textContent = "Usuario/correo o clave incorrectos. Revisa tus datos o usa Solicitar Acceso.";
             }
         }
+
+        function solicitarAccesoPP(e) {
+            e.preventDefault();
+            const nombre = document.getElementById("pp-sol-nombre").value.trim();
+            const correo = document.getElementById("pp-sol-correo").value.trim();
+            const tel = document.getElementById("pp-sol-tel").value.trim();
+            const msg = document.getElementById("pp-mensaje");
+
+            const asunto = encodeURIComponent(`Solicitud de Acceso Perfect Point - ${nombre}`);
+            const cuerpo = encodeURIComponent(
+                `Nombre / Marca: ${nombre}\nCorreo: ${correo}\nTeléfono / WhatsApp: ${tel}`
+            );
+
+            if (msg) {
+                msg.textContent = "Solicitud preparada. Se abrirá tu correo o puedes escribirnos a " + CORREO_ADMIN_PP;
+            }
+            window.location.href = `mailto:${CORREO_ADMIN_PP}?subject=${asunto}&body=${cuerpo}`;
+        }
+
+        function cerrarAppPP() {
+            const panelAcceso = document.getElementById("pp-panel-acceso");
+            const wrap = document.getElementById("pp-app-wrap");
+            const iframe = document.getElementById("pp-iframe");
+            const msg = document.getElementById("pp-mensaje");
+
+            if (iframe) {
+                iframe.src = "";
+                iframe.style.display = "none";
+            }
+            if (wrap) {
+                wrap.style.display = "none";
+            }
+            if (panelAcceso) {
+                panelAcceso.style.display = "block";
+            }
+            if (msg) {
+                msg.textContent = "";
+            }
+        }
+    </script>
+</body>
+</html>
