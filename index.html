@@ -728,136 +728,245 @@
             100% { border-color: rgba(0, 255, 204, 1); box-shadow: 0 0 22px rgba(0, 255, 204, 0.75); }
         }
 
-        /* --- PERFECT POINT (ACCESO Y APP) --- */
+        /* --- PERFECT POINT (HUB RADIAL CON BOTÓN CENTRAL INGRESAR + 6 MÓDULOS) --- */
         #perfect-point {
             justify-content: flex-start;
-            padding-top: 90px;
+            padding-top: 84px;
             text-align: center;
+            background: radial-gradient(circle at center, #0e1c1a 0%, #050505 70%);
         }
 
-        .pp-box {
-            width: 100%;
-            max-width: 540px;
-            background: var(--dark-card);
-            border: 1px solid rgba(0, 255, 204, 0.35);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.12);
+        .pp-header {
+            max-width: 780px;
+            margin: 0 auto 4px auto;
         }
 
-        .pp-box h2 {
+        .pp-header h2 {
+            font-size: 2.1rem;
             color: var(--cyan-neon);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 14px rgba(0, 255, 204, 0.45);
         }
 
-        .pp-sub {
+        .pp-header p {
             color: var(--text-muted);
             font-size: 0.9rem;
-            margin-bottom: 18px;
-            line-height: 1.45;
+            margin-top: 4px;
         }
 
-        .pp-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 16px;
-        }
-
-        .pp-tab-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            background: #0a0a0a;
-            color: #fff;
+        .pp-badge-multimarca {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 8px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.78rem;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.25s;
-        }
-
-        .pp-tab-btn.activo {
-            border-color: var(--cyan-neon);
+            letter-spacing: 0.5px;
             color: var(--cyan-neon);
-            background: rgba(0, 255, 204, 0.12);
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.35);
         }
 
-        .pp-form {
+        .pp-orbit-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, auto);
+            grid-template-areas:
+                "f1 f2 f3"
+                "f4 center f5"
+                "f6 center f6";
+            gap: 14px;
+            width: 94%;
+            max-width: 1080px;
+            align-items: center;
+            margin-top: 6px;
+        }
+
+        /* En pantallas grandes colocamos las 6 tarjetas alrededor del centro */
+        @media (min-width: 861px) {
+            .pp-orbit-grid {
+                grid-template-columns: 1fr 270px 1fr;
+                grid-template-rows: repeat(3, 1fr);
+                grid-template-areas:
+                    "f1 f2 f3"
+                    "f4 center f5"
+                    "f6 center f6";
+            }
+            .pp-area-1 { grid-area: f1; }
+            .pp-area-2 { grid-area: f2; }
+            .pp-area-3 { grid-area: f3; }
+            .pp-area-4 { grid-area: f4; }
+            .pp-area-5 { grid-area: f5; }
+            .pp-area-6 { grid-area: f6; max-width: 360px; justify-self: center; width: 100%; }
+            .pp-center-area { grid-area: center; }
+        }
+
+        @media (max-width: 860px) {
+            .pp-orbit-grid {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "center"
+                    "f1"
+                    "f2"
+                    "f3"
+                    "f4"
+                    "f5"
+                    "f6";
+            }
+            .pp-area-1 { grid-area: f1; }
+            .pp-area-2 { grid-area: f2; }
+            .pp-area-3 { grid-area: f3; }
+            .pp-area-4 { grid-area: f4; }
+            .pp-area-5 { grid-area: f5; }
+            .pp-area-6 { grid-area: f6; }
+            .pp-center-area { grid-area: center; margin: 10px 0; }
+        }
+
+        .pp-center-area {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pp-btn-ingresar-central {
+            width: 185px;
+            height: 185px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #163832 0%, #081210 75%);
+            border: 3px solid var(--cyan-neon);
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 900;
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 28px rgba(0, 255, 204, 0.45), inset 0 0 22px rgba(0, 255, 204, 0.2);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, color 0.35s ease;
+            animation: pulso-core 2.6s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .pp-btn-ingresar-central i {
+            font-size: 2.1rem;
+            color: var(--cyan-neon);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .pp-btn-ingresar-central small {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--cyan-neon);
+            opacity: 0.9;
+        }
+
+        .pp-btn-ingresar-central:hover {
+            transform: scale(1.08);
+            background: var(--cyan-neon);
+            color: #000000;
+            box-shadow: 0 0 45px rgba(0, 255, 204, 0.9);
+        }
+
+        .pp-btn-ingresar-central:hover i,
+        .pp-btn-ingresar-central:hover small {
+            color: #000000;
+            transform: translateX(3px);
+        }
+
+        @keyframes pulso-core {
+            0%, 100% { box-shadow: 0 0 24px rgba(0, 255, 204, 0.4), inset 0 0 18px rgba(0, 255, 204, 0.15); }
+            50% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.8), inset 0 0 26px rgba(0, 255, 204, 0.3); }
+        }
+
+        .pp-func-card {
+            background: rgba(17, 17, 17, 0.94);
+            border: 1px solid rgba(0, 255, 204, 0.25);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
             gap: 12px;
             text-align: left;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .pp-form input {
-            padding: 12px;
-            background: #080808;
-            border: 1px solid #333;
-            border-radius: 8px;
-            color: #fff;
-            font-size: 0.95rem;
-        }
-
-        .pp-form input:focus {
-            outline: none;
+        .pp-func-card:hover {
+            transform: translateY(-3px);
             border-color: var(--cyan-neon);
+            box-shadow: 0 8px 22px rgba(0, 255, 204, 0.2);
         }
 
-        .pp-msg {
-            margin-top: 10px;
-            font-size: 0.88rem;
-            color: var(--cyan-neon);
-            text-align: center;
-        }
-
-        .pp-app-frame-wrap {
-            display: none;
-            width: 100%;
-            max-width: 1200px;
-            height: 75vh;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 255, 204, 0.4);
-            background: #0a0a0a;
-            flex-direction: column;
-        }
-
-        .pp-app-toolbar {
+        /* Contenedor multimedia de cada función: hoy ícono, mañana video demo */
+        .pp-func-media {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(0, 255, 204, 0.08);
+            border: 1px solid rgba(0, 255, 204, 0.35);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 10px 16px;
-            background: #111;
-            border-bottom: 1px solid #222;
-            gap: 10px;
-            flex-wrap: wrap;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+            position: relative;
         }
 
-        .pp-app-toolbar span {
+        .pp-func-media i {
+            font-size: 1.45rem;
             color: var(--cyan-neon);
-            font-weight: bold;
-            font-size: 0.9rem;
         }
 
-        .pp-app-toolbar a,
-        .pp-app-toolbar button {
-            padding: 6px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--cyan-neon);
-            background: rgba(0, 255, 204, 0.12);
-            color: #fff;
-            font-size: 0.82rem;
+        .pp-func-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pp-func-info h3 {
+            font-size: 0.92rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 3px;
+        }
+
+        .pp-func-info h3 span {
+            color: var(--cyan-neon);
+            margin-right: 4px;
+        }
+
+        .pp-func-info p {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        .pp-solicitar-link {
+            margin-top: 4px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .pp-solicitar-link a {
+            color: var(--cyan-neon);
             font-weight: bold;
             text-decoration: none;
-            cursor: pointer;
+            border-bottom: 1px dashed var(--cyan-neon);
         }
 
-        .pp-app-frame-wrap iframe {
-            width: 100%;
-            flex: 1;
-            border: none;
-            background: #050505;
+        .pp-solicitar-link a:hover {
+            color: #ffffff;
         }
     </style>
 </head>
@@ -1102,46 +1211,98 @@
             </div>
         </section>
 
-        <!-- PÁGINA 6: PERFECT POINT (SOLICITAR ACCESO / INGRESAR Y ABRIR APP) -->
+        <!-- PÁGINA 6: PERFECT POINT (HUB DE FUNCIONES + BOTÓN INGRESAR CENTRAL) -->
         <section id="perfect-point" class="pagina">
-            <div class="pp-box" id="pp-panel-acceso">
+            <div class="pp-header">
                 <h2>Perfect Point</h2>
-                <p class="pp-sub">Plataforma de gestión, resultados y almacén creativo de <strong>Point Grid Media Agency</strong>. Ingresa con tu clave o solicita acceso.</p>
-
-                <div class="pp-tabs">
-                    <button type="button" class="pp-tab-btn activo" id="tab-ingresar" onclick="cambiarTabPP('ingresar')">Ingresar</button>
-                    <button type="button" class="pp-tab-btn" id="tab-solicitar" onclick="cambiarTabPP('solicitar')">Solicitar Acceso</button>
+                <p>Ecosistema integral de gestión comercial, generación con IA, pauta y analítica ejecutiva de <strong>Point Grid Media Agency</strong>.</p>
+                <div class="pp-badge-multimarca">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Gestión Multi-Marca • Demo gratuita de 3 días disponible al entrar</span>
                 </div>
-
-                <!-- Formulario Ingresar -->
-                <form class="pp-form" id="form-pp-ingresar" onsubmit="ingresarPerfectPoint(event)">
-                    <input type="text" id="pp-usuario" placeholder="Usuario o correo (ej. luis o contacto@pointgridmx.com)" required>
-                    <input type="password" id="pp-clave" placeholder="Clave de acceso" required>
-                    <button type="submit" class="btn-enviar">Ingresar y Abrir App</button>
-                </form>
-
-                <!-- Formulario Solicitar Acceso -->
-                <form class="pp-form" id="form-pp-solicitar" style="display: none;" onsubmit="solicitarAccesoPP(event)">
-                    <input type="text" id="pp-sol-nombre" placeholder="Tu nombre y marca / proyecto" required>
-                    <input type="email" id="pp-sol-correo" placeholder="Tu correo electrónico" required>
-                    <input type="tel" id="pp-sol-tel" placeholder="Teléfono / WhatsApp" required>
-                    <button type="submit" class="btn-enviar">Solicitar Acceso</button>
-                </form>
-
-                <p class="pp-msg" id="pp-mensaje"></p>
             </div>
 
-            <!-- Contenedor de la App una vez que ingresan -->
-            <div class="pp-app-frame-wrap" id="pp-app-wrap">
-                <div class="pp-app-toolbar">
-                    <span>Perfect Point — App Activa</span>
-                    <div style="display:flex; gap:8px;">
-                        <a id="pp-link-externo" href="https://perfect-point-grid.streamlit.app" target="_blank" rel="noopener noreferrer">Abrir en nueva pestaña</a>
-                        <button type="button" onclick="cerrarAppPP()">Cerrar sesión</button>
+            <div class="pp-orbit-grid">
+                <!-- Módulo 1 -->
+                <div class="pp-func-card pp-area-1">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>01.</span> Presupuesto y Gastos</h3>
+                        <p>Control de inversión publicitaria, flujo operativo y distribución por marca.</p>
                     </div>
                 </div>
-                <iframe id="pp-iframe" src="" allow="clipboard-read; clipboard-write"></iframe>
+
+                <!-- Módulo 2 -->
+                <div class="pp-func-card pp-area-2">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>02.</span> Generador de Contenido IA</h3>
+                        <p>Creación automática de copys, guiones e ideas creativas listas para campaña.</p>
+                    </div>
+                </div>
+
+                <!-- Módulo 3 -->
+                <div class="pp-func-card pp-area-3">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>03.</span> Parrilla y Publicación</h3>
+                        <p>Programación de publicaciones y envío directo a Facebook Page desde un tablero.</p>
+                    </div>
+                </div>
+
+                <!-- Módulo 4 -->
+                <div class="pp-func-card pp-area-4">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-tent"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>04.</span> Eventos y Briefs</h3>
+                        <p>Planeación de activaciones BTL, metas comerciales y seguimiento operativo.</p>
+                    </div>
+                </div>
+
+                <!-- BOTÓN CENTRAL INGRESAR -->
+                <div class="pp-center-area">
+                    <a href="https://perfect-point-grid.streamlit.app" target="_blank" rel="noopener noreferrer" class="pp-btn-ingresar-central" title="Abrir plataforma Perfect Point">
+                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <span>Ingresar</span>
+                        <small>Abrir App</small>
+                    </a>
+                </div>
+
+                <!-- Módulo 5 -->
+                <div class="pp-func-card pp-area-5">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>05.</span> Resultados y Analítica</h3>
+                        <p>Embudo de conversión, CPL, CAC, salud de inversión y efectividad de cierre.</p>
+                    </div>
+                </div>
+
+                <!-- Módulo 6 -->
+                <div class="pp-func-card pp-area-6">
+                    <div class="pp-func-media" title="Espacio listo para video demo">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <div class="pp-func-info">
+                        <h3><span>06.</span> Almacén Creativo &amp; PDF</h3>
+                        <p>Reportes ejecutivos en PDF, curaduría IA y bóveda de archivos por mes.</p>
+                    </div>
+                </div>
             </div>
+
+            <p class="pp-solicitar-link">
+                ¿Aún no tienes usuario? Entra y activa tu prueba gratuita o
+                <a href="mailto:contacto@pointgridmx.com?subject=Solicitud%20de%20Acceso%20Perfect%20Point">solicita acceso aquí</a>.
+            </p>
         </section>
 
     </div>
@@ -1382,106 +1543,6 @@
         }
 
         resetearIntervalo();
-
-        // 7. Lógica de Acceso y Apertura de Perfect Point
-        const PERFECT_POINT_APP_URL = "https://perfect-point-grid.streamlit.app";
-        const ADMIN_USER_PP = "luis";
-        const ADMIN_EMAIL_PP = "contacto@pointgridmx.com";
-        const CLAVE_ACCESO_PP = "pointgrid9280";
-        const CORREO_ADMIN_PP = "contacto@pointgridmx.com";
-
-        function cambiarTabPP(modo) {
-            const tabIng = document.getElementById("tab-ingresar");
-            const tabSol = document.getElementById("tab-solicitar");
-            const formIng = document.getElementById("form-pp-ingresar");
-            const formSol = document.getElementById("form-pp-solicitar");
-            const msg = document.getElementById("pp-mensaje");
-
-            if (msg) msg.textContent = "";
-            if (modo === "ingresar") {
-                tabIng.classList.add("activo");
-                tabSol.classList.remove("activo");
-                formIng.style.display = "flex";
-                formSol.style.display = "none";
-            } else {
-                tabSol.classList.add("activo");
-                tabIng.classList.remove("activo");
-                formSol.style.display = "flex";
-                formIng.style.display = "none";
-            }
-        }
-
-        function ingresarPerfectPoint(e) {
-            e.preventDefault();
-            const usuarioIngresado = document.getElementById("pp-usuario").value.trim().toLowerCase();
-            const claveIngresada = document.getElementById("pp-clave").value.trim();
-            const msg = document.getElementById("pp-mensaje");
-
-            const usuarioValido = (
-                usuarioIngresado === ADMIN_USER_PP.toLowerCase() ||
-                usuarioIngresado === ADMIN_EMAIL_PP.toLowerCase()
-            );
-
-            if (usuarioValido && claveIngresada === CLAVE_ACCESO_PP) {
-                if (msg) msg.textContent = "Acceso concedido. Cargando Perfect Point...";
-                const panelAcceso = document.getElementById("pp-panel-acceso");
-                const wrap = document.getElementById("pp-app-wrap");
-                const iframe = document.getElementById("pp-iframe");
-                const linkExt = document.getElementById("pp-link-externo");
-
-                if (panelAcceso) panelAcceso.style.display = "none";
-                if (linkExt) linkExt.href = PERFECT_POINT_APP_URL;
-                if (iframe) {
-                    iframe.style.display = "block";
-                    iframe.src = PERFECT_POINT_APP_URL;
-                }
-                if (wrap) {
-                    wrap.style.height = "75vh";
-                    wrap.style.display = "flex";
-                }
-            } else {
-                if (msg) msg.textContent = "Usuario/correo o clave incorrectos. Revisa tus datos o usa Solicitar Acceso.";
-            }
-        }
-
-        function solicitarAccesoPP(e) {
-            e.preventDefault();
-            const nombre = document.getElementById("pp-sol-nombre").value.trim();
-            const correo = document.getElementById("pp-sol-correo").value.trim();
-            const tel = document.getElementById("pp-sol-tel").value.trim();
-            const msg = document.getElementById("pp-mensaje");
-
-            const asunto = encodeURIComponent(`Solicitud de Acceso Perfect Point - ${nombre}`);
-            const cuerpo = encodeURIComponent(
-                `Nombre / Marca: ${nombre}\nCorreo: ${correo}\nTeléfono / WhatsApp: ${tel}`
-            );
-
-            if (msg) {
-                msg.textContent = "Solicitud preparada. Se abrirá tu correo o puedes escribirnos a " + CORREO_ADMIN_PP;
-            }
-            window.location.href = `mailto:${CORREO_ADMIN_PP}?subject=${asunto}&body=${cuerpo}`;
-        }
-
-        function cerrarAppPP() {
-            const panelAcceso = document.getElementById("pp-panel-acceso");
-            const wrap = document.getElementById("pp-app-wrap");
-            const iframe = document.getElementById("pp-iframe");
-            const msg = document.getElementById("pp-mensaje");
-
-            if (iframe) {
-                iframe.src = "";
-                iframe.style.display = "none";
-            }
-            if (wrap) {
-                wrap.style.display = "none";
-            }
-            if (panelAcceso) {
-                panelAcceso.style.display = "block";
-            }
-            if (msg) {
-                msg.textContent = "";
-            }
-        }
     </script>
 </body>
 </html>
