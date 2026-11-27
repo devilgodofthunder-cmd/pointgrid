@@ -1114,42 +1114,27 @@
             );
 
             if (usuarioValido && claveIngresada === CLAVE_ACCESO_PP) {
-                msg.textContent = "Acceso de administrador concedido. Abriendo Perfect Point...";
+                msg.textContent = "Acceso concedido. Abriendo Perfect Point en una pestaña nueva...";
                 document.getElementById("pp-panel-acceso").style.display = "none";
+
                 const wrap = document.getElementById("pp-app-wrap");
                 const iframe = document.getElementById("pp-iframe");
                 const linkExt = document.getElementById("pp-link-externo");
-                iframe.src = PERFECT_POINT_APP_URL;
-                linkExt.href = PERFECT_POINT_APP_URL;
-                wrap.style.display = "flex";
+
+                if (iframe) {
+                    iframe.style.display = "none";
+                    iframe.src = "";
+                }
+                if (linkExt) {
+                    linkExt.href = PERFECT_POINT_APP_URL;
+                }
+                if (wrap) {
+                    wrap.style.height = "auto";
+                    wrap.style.display = "flex";
+                }
+
+                window.open(PERFECT_POINT_APP_URL, "_blank", "noopener,noreferrer");
             } else {
                 msg.textContent = "Usuario/correo o clave incorrectos. Revisa tus datos o usa Solicitar Acceso.";
             }
         }
-
-        function solicitarAccesoPP(e) {
-            e.preventDefault();
-            const nombre = document.getElementById("pp-sol-nombre").value.trim();
-            const correo = document.getElementById("pp-sol-correo").value.trim();
-            const tel = document.getElementById("pp-sol-tel").value.trim();
-
-            const asunto = encodeURIComponent("Solicitud de acceso - Perfect Point");
-            const cuerpo = encodeURIComponent(
-                `Hola, solicito acceso a Perfect Point.\nNombre / Marca: ${nombre}\nCorreo: ${correo}\nTeléfono: ${tel}`
-            );
-
-            document.getElementById("pp-mensaje").textContent = "Abriendo correo para enviar tu solicitud a " + CORREO_ADMIN_PP + "...";
-            window.location.href = `mailto:${CORREO_ADMIN_PP}?subject=${asunto}&body=${cuerpo}`;
-        }
-
-        function cerrarAppPP() {
-            document.getElementById("pp-iframe").src = "";
-            document.getElementById("pp-app-wrap").style.display = "none";
-            document.getElementById("pp-panel-acceso").style.display = "block";
-            document.getElementById("pp-usuario").value = "";
-            document.getElementById("pp-clave").value = "";
-            document.getElementById("pp-mensaje").textContent = "";
-        }
-    </script>
-</body>
-</html>
