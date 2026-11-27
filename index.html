@@ -874,14 +874,11 @@
 
     <!-- SCRIPTS -->
     <script>
-        // URL de tu app desplegada (cámbiala por la URL real de tu app cuando la tengas alojada)
-        const PERFECT_POINT_APP_URL = "https://perfect-point.streamlit.app/?embed=true";
-        // Clave de acceso inicial de ejemplo (cámbiala por la que tú definas)
-        const CLAVE_ACCESO_PP = "POINT2026";
-
-        // 1. Control de Audio Automático
+        // 1. Configuración y Control de Audio Automático
         const musica = document.getElementById("bg-music");
         const iconoPlay = document.getElementById("icono-play");
+        let musicaPausadaManual = false;
+        let paginaActual = "inicio";
         musica.volume = 0.5;
 
         function actualizarIconoAudio() {
@@ -896,11 +893,13 @@
 
         function toggleAudio() {
             if (musica.paused) {
-                musica.play();
+                musicaPausadaManual = false;
+                musica.play().then(actualizarIconoAudio).catch(() => {});
             } else {
+                musicaPausadaManual = true;
                 musica.pause();
+                actualizarIconoAudio();
             }
-            actualizarIconoAudio();
         }
 
         function cambiarVolumen(cambio) {
@@ -911,17 +910,20 @@
         }
 
         function intentarReproducir() {
+            if (paginaActual === "perfect-point" || musicaPausadaManual) return;
+
             musica.play().then(() => {
                 actualizarIconoAudio();
             }).catch(() => {
                 actualizarIconoAudio();
                 const desbloquearAudio = () => {
+                    if (paginaActual === "perfect-point" || musicaPausadaManual) return;
                     musica.play().then(() => {
                         actualizarIconoAudio();
                         document.removeEventListener('click', desbloquearAudio);
                         document.removeEventListener('touchstart', desbloquearAudio);
                         document.removeEventListener('keydown', desbloquearAudio);
-                    });
+                    }).catch(() => {});
                 };
                 document.addEventListener('click', desbloquearAudio);
                 document.addEventListener('touchstart', desbloquearAudio);
@@ -963,11 +965,21 @@
         }
         maquinaEscribir();
 
-        // 3. Navegación entre páginas
+        // 3. Navegación entre páginas + silencio automático en Perfect Point
         function navegarA(idPagina, enlaceClickeado) {
+            paginaActual = idPagina;
+
             document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
             if (enlaceClickeado) {
                 enlaceClickeado.classList.add('active');
+            }
+
+            // Si entra a Perfect Point se apaga la música; si sale a cualquier otro apartado, vuelve a sonar
+            if (idPagina === "perfect-point") {
+                musica.pause();
+                actualizarIconoAudio();
+            } else if (!musicaPausadaManual) {
+                musica.play().then(actualizarIconoAudio).catch(() => {});
             }
 
             document.querySelectorAll('.pagina').forEach(pag => {
@@ -1138,3 +1150,6 @@
             document.getElementById("pp-clave").value = "";
             document.getElementById("pp-mensaje").textContent = "";
         }
+    </script>
+</body>
+</html>
