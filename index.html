@@ -728,21 +728,22 @@
             100% { border-color: rgba(0, 255, 204, 1); box-shadow: 0 0 22px rgba(0, 255, 204, 0.75); }
         }
 
-        /* --- PERFECT POINT (HUB RADIAL CON BOTÓN CENTRAL INGRESAR + 6 MÓDULOS) --- */
+        /* --- PERFECT POINT (ESCENARIO ORBITAL GIRATORIO + BOTÓN CENTRAL INGRESAR) --- */
         #perfect-point {
             justify-content: flex-start;
             padding-top: 84px;
             text-align: center;
-            background: radial-gradient(circle at center, #0e1c1a 0%, #050505 70%);
+            background: radial-gradient(circle at center, #0d1f1c 0%, #050505 72%);
         }
 
         .pp-header {
             max-width: 780px;
-            margin: 0 auto 4px auto;
+            margin: 0 auto 6px auto;
+            z-index: 5;
         }
 
         .pp-header h2 {
-            font-size: 2.1rem;
+            font-size: 2rem;
             color: var(--cyan-neon);
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -751,18 +752,18 @@
 
         .pp-header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: 4px;
+            font-size: 0.88rem;
+            margin-top: 3px;
         }
 
         .pp-badge-multimarca {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            margin-top: 8px;
-            padding: 5px 14px;
+            margin-top: 6px;
+            padding: 4px 14px;
             border-radius: 20px;
-            font-size: 0.78rem;
+            font-size: 0.76rem;
             font-weight: bold;
             letter-spacing: 0.5px;
             color: var(--cyan-neon);
@@ -770,159 +771,115 @@
             border: 1px solid rgba(0, 255, 204, 0.35);
         }
 
-        .pp-orbit-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, auto);
-            grid-template-areas:
-                "f1 f2 f3"
-                "f4 center f5"
-                "f6 center f6";
-            gap: 14px;
-            width: 94%;
-            max-width: 1080px;
-            align-items: center;
-            margin-top: 6px;
-        }
-
-        /* En pantallas grandes colocamos las 6 tarjetas alrededor del centro */
-        @media (min-width: 861px) {
-            .pp-orbit-grid {
-                grid-template-columns: 1fr 270px 1fr;
-                grid-template-rows: repeat(3, 1fr);
-                grid-template-areas:
-                    "f1 f2 f3"
-                    "f4 center f5"
-                    "f6 center f6";
-            }
-            .pp-area-1 { grid-area: f1; }
-            .pp-area-2 { grid-area: f2; }
-            .pp-area-3 { grid-area: f3; }
-            .pp-area-4 { grid-area: f4; }
-            .pp-area-5 { grid-area: f5; }
-            .pp-area-6 { grid-area: f6; max-width: 360px; justify-self: center; width: 100%; }
-            .pp-center-area { grid-area: center; }
-        }
-
-        @media (max-width: 860px) {
-            .pp-orbit-grid {
-                grid-template-columns: 1fr;
-                grid-template-areas:
-                    "center"
-                    "f1"
-                    "f2"
-                    "f3"
-                    "f4"
-                    "f5"
-                    "f6";
-            }
-            .pp-area-1 { grid-area: f1; }
-            .pp-area-2 { grid-area: f2; }
-            .pp-area-3 { grid-area: f3; }
-            .pp-area-4 { grid-area: f4; }
-            .pp-area-5 { grid-area: f5; }
-            .pp-area-6 { grid-area: f6; }
-            .pp-center-area { grid-area: center; margin: 10px 0; }
-        }
-
-        .pp-center-area {
+        /* Escenario circular centrado con órbita giratoria lenta */
+        .pp-orbit-stage {
+            --orbit-size: 500px;
+            --orbit-radius: 195px;
+            --orbit-duration: 48s;
+            position: relative;
+            width: var(--orbit-size);
+            height: var(--orbit-size);
+            max-width: 96vw;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            margin: 4px auto;
         }
 
-        .pp-btn-ingresar-central {
-            width: 185px;
-            height: 185px;
+        .pp-orbit-ring {
+            position: absolute;
+            width: calc(var(--orbit-radius) * 2);
+            height: calc(var(--orbit-radius) * 2);
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #163832 0%, #081210 75%);
-            border: 3px solid var(--cyan-neon);
-            color: #ffffff;
-            text-decoration: none;
+            border: 1px dashed rgba(0, 255, 204, 0.25);
+            pointer-events: none;
+        }
+
+        /* Rotación lenta del conjunto de propiedades alrededor del centro */
+        .pp-orbit-rotator {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            animation: girar-orbita var(--orbit-duration) linear infinite;
+        }
+
+        .pp-orbit-stage:hover .pp-orbit-rotator,
+        .pp-orbit-stage:hover .pp-counter-rotate {
+            animation-play-state: paused;
+        }
+
+        @keyframes girar-orbita {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes contrarrotar-orbita {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(-360deg); }
+        }
+
+        /* Cada propiedad se coloca en un ángulo sobre el radio de la órbita */
+        .pp-orbit-item {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            --angle: 0deg;
+            transform:
+                translate(-50%, -50%)
+                rotate(var(--angle))
+                translateY(calc(var(--orbit-radius) * -1))
+                rotate(calc(var(--angle) * -1));
+            z-index: 2;
+        }
+
+        .pp-orbit-item:nth-child(1) { --angle: 0deg; }
+        .pp-orbit-item:nth-child(2) { --angle: 60deg; }
+        .pp-orbit-item:nth-child(3) { --angle: 120deg; }
+        .pp-orbit-item:nth-child(4) { --angle: 180deg; }
+        .pp-orbit-item:nth-child(5) { --angle: 240deg; }
+        .pp-orbit-item:nth-child(6) { --angle: 300deg; }
+
+        .pp-counter-rotate {
+            animation: contrarrotar-orbita var(--orbit-duration) linear infinite;
+        }
+
+        /* Tarjeta compacta de cada propiedad (lista para recibir video en .pp-func-media) */
+        .pp-func-card {
+            width: 118px;
+            background: rgba(15, 15, 15, 0.95);
+            border: 1px solid rgba(0, 255, 204, 0.35);
+            border-radius: 14px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            font-weight: 900;
-            font-size: 1.25rem;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            box-shadow: 0 0 28px rgba(0, 255, 204, 0.45), inset 0 0 22px rgba(0, 255, 204, 0.2);
-            transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, color 0.35s ease;
-            animation: pulso-core 2.6s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        .pp-btn-ingresar-central i {
-            font-size: 2.1rem;
-            color: var(--cyan-neon);
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .pp-btn-ingresar-central small {
-            font-size: 0.68rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            color: var(--cyan-neon);
-            opacity: 0.9;
-        }
-
-        .pp-btn-ingresar-central:hover {
-            transform: scale(1.08);
-            background: var(--cyan-neon);
-            color: #000000;
-            box-shadow: 0 0 45px rgba(0, 255, 204, 0.9);
-        }
-
-        .pp-btn-ingresar-central:hover i,
-        .pp-btn-ingresar-central:hover small {
-            color: #000000;
-            transform: translateX(3px);
-        }
-
-        @keyframes pulso-core {
-            0%, 100% { box-shadow: 0 0 24px rgba(0, 255, 204, 0.4), inset 0 0 18px rgba(0, 255, 204, 0.15); }
-            50% { box-shadow: 0 0 40px rgba(0, 255, 204, 0.8), inset 0 0 26px rgba(0, 255, 204, 0.3); }
-        }
-
-        .pp-func-card {
-            background: rgba(17, 17, 17, 0.94);
-            border: 1px solid rgba(0, 255, 204, 0.25);
-            border-radius: 14px;
-            padding: 12px 14px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-align: left;
-            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+            gap: 6px;
+            text-align: center;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.65);
+            transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
         }
 
         .pp-func-card:hover {
-            transform: translateY(-3px);
             border-color: var(--cyan-neon);
-            box-shadow: 0 8px 22px rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.45);
+            transform: scale(1.06);
         }
 
-        /* Contenedor multimedia de cada función: hoy ícono, mañana video demo */
         .pp-func-media {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
             background: rgba(0, 255, 204, 0.08);
             border: 1px solid rgba(0, 255, 204, 0.35);
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
             overflow: hidden;
-            position: relative;
+            flex-shrink: 0;
         }
 
         .pp-func-media i {
-            font-size: 1.45rem;
+            font-size: 1.15rem;
             color: var(--cyan-neon);
         }
 
@@ -933,29 +890,117 @@
             display: block;
         }
 
-        .pp-func-info h3 {
-            font-size: 0.92rem;
+        .pp-func-card h3 {
+            font-size: 0.72rem;
             color: #ffffff;
+            line-height: 1.2;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 3px;
+            letter-spacing: 0.3px;
         }
 
-        .pp-func-info h3 span {
+        .pp-func-card h3 span {
             color: var(--cyan-neon);
-            margin-right: 4px;
+            display: block;
+            font-size: 0.66rem;
         }
 
-        .pp-func-info p {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            line-height: 1.35;
+        /* Botón central fijo INGRESAR */
+        .pp-center-btn-wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        .pp-btn-ingresar-central {
+            width: 132px;
+            height: 132px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #19423a 0%, #07110f 78%);
+            border: 3px solid var(--cyan-neon);
+            color: #ffffff;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            box-shadow: 0 0 28px rgba(0, 255, 204, 0.5), inset 0 0 20px rgba(0, 255, 204, 0.22);
+            transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            animation: pulso-core 2.6s ease-in-out infinite;
+            cursor: pointer;
+        }
+
+        .pp-btn-ingresar-central i {
+            font-size: 1.55rem;
+            color: var(--cyan-neon);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .pp-btn-ingresar-central small {
+            font-size: 0.62rem;
+            font-weight: 700;
+            letter-spacing: 0.8px;
+            color: var(--cyan-neon);
+        }
+
+        .pp-btn-ingresar-central:hover {
+            transform: scale(1.08);
+            background: var(--cyan-neon);
+            color: #000000;
+            box-shadow: 0 0 42px rgba(0, 255, 204, 0.95);
+        }
+
+        .pp-btn-ingresar-central:hover i,
+        .pp-btn-ingresar-central:hover small {
+            color: #000000;
+        }
+
+        @keyframes pulso-core {
+            0%, 100% { box-shadow: 0 0 24px rgba(0, 255, 204, 0.45), inset 0 0 18px rgba(0, 255, 204, 0.18); }
+            50% { box-shadow: 0 0 38px rgba(0, 255, 204, 0.85), inset 0 0 26px rgba(0, 255, 204, 0.32); }
+        }
+
+        @media (max-width: 600px) {
+            .pp-orbit-stage {
+                --orbit-size: 360px;
+                --orbit-radius: 132px;
+            }
+            .pp-func-card {
+                width: 92px;
+                padding: 6px;
+                border-radius: 11px;
+            }
+            .pp-func-media {
+                width: 34px;
+                height: 34px;
+            }
+            .pp-func-media i {
+                font-size: 0.95rem;
+            }
+            .pp-func-card h3 {
+                font-size: 0.62rem;
+            }
+            .pp-btn-ingresar-central {
+                width: 98px;
+                height: 98px;
+                font-size: 0.8rem;
+            }
+            .pp-btn-ingresar-central i {
+                font-size: 1.2rem;
+            }
         }
 
         .pp-solicitar-link {
-            margin-top: 4px;
+            margin-top: 2px;
             font-size: 0.8rem;
             color: var(--text-muted);
+            z-index: 5;
         }
 
         .pp-solicitar-link a {
@@ -1211,7 +1256,7 @@
             </div>
         </section>
 
-        <!-- PÁGINA 6: PERFECT POINT (HUB DE FUNCIONES + BOTÓN INGRESAR CENTRAL) -->
+        <!-- PÁGINA 6: PERFECT POINT (BOTÓN INGRESAR EN MEDIO + FUNCIONES GIRANDO ALREDEDOR) -->
         <section id="perfect-point" class="pagina">
             <div class="pp-header">
                 <h2>Perfect Point</h2>
@@ -1222,53 +1267,11 @@
                 </div>
             </div>
 
-            <div class="pp-orbit-grid">
-                <!-- Módulo 1 -->
-                <div class="pp-func-card pp-area-1">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-wallet"></i>
-                    </div>
-                    <div class="pp-func-info">
-                        <h3><span>01.</span> Presupuesto y Gastos</h3>
-                        <p>Control de inversión publicitaria, flujo operativo y distribución por marca.</p>
-                    </div>
-                </div>
+            <div class="pp-orbit-stage">
+                <div class="pp-orbit-ring"></div>
 
-                <!-- Módulo 2 -->
-                <div class="pp-func-card pp-area-2">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i>
-                    </div>
-                    <div class="pp-func-info">
-                        <h3><span>02.</span> Generador de Contenido IA</h3>
-                        <p>Creación automática de copys, guiones e ideas creativas listas para campaña.</p>
-                    </div>
-                </div>
-
-                <!-- Módulo 3 -->
-                <div class="pp-func-card pp-area-3">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-calendar-check"></i>
-                    </div>
-                    <div class="pp-func-info">
-                        <h3><span>03.</span> Parrilla y Publicación</h3>
-                        <p>Programación de publicaciones y envío directo a Facebook Page desde un tablero.</p>
-                    </div>
-                </div>
-
-                <!-- Módulo 4 -->
-                <div class="pp-func-card pp-area-4">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-tent"></i>
-                    </div>
-                    <div class="pp-func-info">
-                        <h3><span>04.</span> Eventos y Briefs</h3>
-                        <p>Planeación de activaciones BTL, metas comerciales y seguimiento operativo.</p>
-                    </div>
-                </div>
-
-                <!-- BOTÓN CENTRAL INGRESAR -->
-                <div class="pp-center-area">
+                <!-- Botón central fijo INGRESAR -->
+                <div class="pp-center-btn-wrap">
                     <a href="https://perfect-point-grid.streamlit.app" target="_blank" rel="noopener noreferrer" class="pp-btn-ingresar-central" title="Abrir plataforma Perfect Point">
                         <i class="fa-solid fa-right-to-bracket"></i>
                         <span>Ingresar</span>
@@ -1276,25 +1279,78 @@
                     </a>
                 </div>
 
-                <!-- Módulo 5 -->
-                <div class="pp-func-card pp-area-5">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-chart-line"></i>
+                <!-- Propiedades / funciones girando lentamente alrededor del botón central -->
+                <div class="pp-orbit-rotator">
+                    <!-- 01 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Presupuesto y Gastos">
+                                    <i class="fa-solid fa-wallet"></i>
+                                </div>
+                                <h3><span>01</span>Presupuesto y Gastos</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pp-func-info">
-                        <h3><span>05.</span> Resultados y Analítica</h3>
-                        <p>Embudo de conversión, CPL, CAC, salud de inversión y efectividad de cierre.</p>
-                    </div>
-                </div>
 
-                <!-- Módulo 6 -->
-                <div class="pp-func-card pp-area-6">
-                    <div class="pp-func-media" title="Espacio listo para video demo">
-                        <i class="fa-solid fa-folder-open"></i>
+                    <!-- 02 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Generador IA">
+                                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                                </div>
+                                <h3><span>02</span>Generador IA</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div class="pp-func-info">
-                        <h3><span>06.</span> Almacén Creativo &amp; PDF</h3>
-                        <p>Reportes ejecutivos en PDF, curaduría IA y bóveda de archivos por mes.</p>
+
+                    <!-- 03 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Parrilla y Publicación">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                </div>
+                                <h3><span>03</span>Parrilla y Publicación</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 04 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Eventos y Briefs">
+                                    <i class="fa-solid fa-tent"></i>
+                                </div>
+                                <h3><span>04</span>Eventos y Briefs</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 05 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Resultados y Analítica">
+                                    <i class="fa-solid fa-chart-line"></i>
+                                </div>
+                                <h3><span>05</span>Resultados y Analítica</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 06 -->
+                    <div class="pp-orbit-item">
+                        <div class="pp-counter-rotate">
+                            <div class="pp-func-card">
+                                <div class="pp-func-media" title="Listo para video de Almacén Creativo & PDF">
+                                    <i class="fa-solid fa-folder-open"></i>
+                                </div>
+                                <h3><span>06</span>Almacén Creativo &amp; PDF</h3>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
